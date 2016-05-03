@@ -1,0 +1,71 @@
+<!doctype html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <!-- <link rel=icon href="img/favicon.png"> -->
+    <!-- <link rel="apple-touch-icon-precomposed" href="img/favicon_apple.png"> -->
+    <title>pew pew >[]} ---- ((o))</title>
+</head>
+
+
+<body>
+
+<div id="game">
+    <canvas id="gameCanvas" width ="900" height="650"></canvas>
+    <script type="text/javascript" src="js/helper.js"></script>
+    <script type="text/javascript" src="js/entities/bullet.js"></script>
+    <script type="text/javascript" src="js/starsystem.js"></script>
+    <script type="text/javascript" src="js/ennemymanager.js"></script>
+    <script type="text/javascript" src="js/entities/ennemy.js"></script>
+    <script type="text/javascript" src="js/ennemybehavior.js"></script>
+    <script type="text/javascript" src="js/entities/player.js"></script>
+    <script type="text/javascript" src="js/physicsmanager.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
+
+    <script type="text/javascript">
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.oRequestAnimationFrame;
+
+    gameCanvas = document.getElementById("gameCanvas");
+    function wScr() { return gameCanvas.width; }
+    function hScr() { return gameCanvas.height; }
+    var game = new Game();
+
+    var keysPressed = new Set();
+    window.addEventListener('keydown', this.keyDown, false);
+    window.addEventListener('keyup', this.keyUp, false);
+    function keyDown(e) {
+        keysPressed.add(e.keyCode);
+    }
+    function keyUp(e) {
+        keysPressed.delete(e.keyCode);
+    }
+
+    var kMAX_LAG = 0.1; // maximal duration sent to the simulation at each frame
+
+    var oldTimestamp = Date.now();
+    function step(timestamp) {
+        var ds = (timestamp - oldTimestamp) / 1000;
+        ds = Math.max(0, ds);
+        ds = Math.min(ds, kMAX_LAG);
+        game.update(ds, keysPressed);
+
+        var ctx = gameCanvas.getContext("2d");
+        ctx.save();
+        ctx.translate(gameCanvas.width / 2, gameCanvas.height / 2);
+        game.draw(ctx);
+        ctx.restore();
+
+        requestAnimationFrame(step);
+        oldTimestamp = timestamp;
+    }
+
+    requestAnimationFrame(step);
+    </script>
+</div>
+
+<div id="footer">
+    <p>A thing by Altom</p>
+    <p>Arrows to move, space to shoot</p>
+</div>
+
+</body>

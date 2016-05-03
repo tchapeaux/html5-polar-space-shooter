@@ -1,0 +1,49 @@
+"use strict";
+
+var Game = function() {
+    this.running = true;
+
+    this.worldSize = Math.min(wScr(), hScr());
+    this.physics = new PhysicsManager(this.worldSize);
+    this.player = new Player(this.worldSize, this.physics);
+    this.starSystem = new StarSystem(this.worldSize);
+    this.ennemyManager = new EnnemyManager(this.worldSize, this.physics);
+
+    // instantly advance the simulation of starsystem so that stars are already in place
+    for (var i = 0; i < 600; i++) {
+        this.starSystem.update(0.1);
+    };
+
+    this.physics.addEntity(this.player);
+};
+
+Game.prototype.update = function(ds, keysPressed) {
+    if (keysPressed.has(80) /* P */) {
+        this.running = !this.running;
+        keysPressed.delete(80);
+    };
+
+    if (this.running) {
+        this.starSystem.update(ds);
+        this.physics.update(ds);
+        while (!this.physics.collisionQueueIsEmpty()) {
+            var collision = this.physics.getNextCollision();
+            var ent1 = collision[0];
+            var ent2 = collision[1];
+            ent1.collisionWith(ent2);
+            ent2.collisionWith(ent1);
+        };
+        this.ennemyManager.update(ds);
+        this.player.update(ds, keysPressed);
+    };
+};
+
+Game.prototype.draw = function(ctx) {
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.rect(-wScr() / 2, -hScr() / 2, wScr(), hScr());
+    ctx.fill();
+    this.starSystem.draw(ctx);
+    this.ennemyManager.draw(ctx);
+    this.player.draw(ctx);
+};
