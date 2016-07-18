@@ -94,7 +94,7 @@ StarSystem.prototype.draw = function(ctx) {
         ctx.globalAlpha = sl.ro / this.worldSize;
         sl.draw(ctx);
         ctx.globalAlpha = 1;
-    };
+    }
 
     // draw stars
     for (var i = this.stars.length - 1; i >= 0; i--) {
@@ -102,12 +102,14 @@ StarSystem.prototype.draw = function(ctx) {
         ctx.globalAlpha = star.ro / this.worldSize;
         star.draw(ctx);
         ctx.globalAlpha = 1;
-    };
+    }
 };
 
 StarSystem.prototype.update = function(ds) {
+    var i, j; // loop variables
+
     // update stars
-    for (var i = this.stars.length - 1; i >= 0; i--) {
+    for (i = this.stars.length - 1; i >= 0; i--) {
         var star = this.stars[i];
         star.update(ds);
 
@@ -115,10 +117,10 @@ StarSystem.prototype.update = function(ds) {
         if (star.ro > this.worldSize) {
             this.stars.splice(i, 1);
         }
-    };
+    }
 
     // update speedlines
-    for (var j = this.speedlines.length - 1; j >= 0; j--) {
+    for (j = this.speedlines.length - 1; j >= 0; j--) {
         var sl = this.speedlines[j];
         sl.update(ds);
 
@@ -126,13 +128,13 @@ StarSystem.prototype.update = function(ds) {
         if (sl.ro > this.worldSize) {
             this.speedlines.splice(j, 1);
         }
-    };
+    }
 
     // create new stars
     if (this.stars.length < this.maxStarsOnScreen) {
         var deltaStars = Math.max(0, this.maxStarsOnScreen - this.stars.length);
         var starsToCreate = Math.min(deltaStars, this.starCreationSpeed * ds);
-        for (var j = 0; j < starsToCreate; j++ ) {
+        for (j = 0; j < starsToCreate; j++ ) {
             this.stars.push(new Star(this.worldSize));
         }
     }
@@ -141,7 +143,7 @@ StarSystem.prototype.update = function(ds) {
     if (this.speedlines.length < this.maxSpeedLinesOnScreen) {
         var deltaSpeedLines = Math.max(0, this.maxSpeedLinesOnScreen - this.speedlines.length);
         var speedLinesToCreate = Math.min(deltaSpeedLines, this.speedLinesCreationSpeed * ds);
-        for (var j = 0; j < speedLinesToCreate; j++ ) {
+        for (j = 0; j < speedLinesToCreate; j++ ) {
             this.speedlines.push(new SpeedLine(this.worldSize));
         }
     }

@@ -11,7 +11,7 @@ var Ennemy = function(world_size, physicsManager, behavior) {
     this.size = 30;
     this.behavior = behavior;
     this.fireTimer = 0;
-}
+};
 
 Ennemy.prototype.update = function(ds) {
     this.behavior.update(ds);
@@ -25,14 +25,14 @@ Ennemy.prototype.update = function(ds) {
     if (firingSpeed >= 0 && this.fireTimer > firingSpeed) {
         this.shoot();
         this.fireTimer -= firingSpeed;
-    };
+    }
 
     if (this.isHit) {
         this.life -= 1;
-    };
+    }
     if (this.life < 0) {
         this.isDead = true;
-    };
+    }
 
     // bullets
     for (var b = this.bullets.length - 1; b >= 0; b--) {
@@ -40,8 +40,8 @@ Ennemy.prototype.update = function(ds) {
         bul.update(ds);
         if (bul.ro <= 0 || bul.ro > this.world_size || bul.isDead) {
             this.bullets.splice(b, 1);
-        };
-    };
+        }
+    }
 };
 
 Ennemy.prototype.draw = function(ctx) {
@@ -59,7 +59,7 @@ Ennemy.prototype.draw = function(ctx) {
 
     for (var b = this.bullets.length - 1; b >= 0; b--) {
         this.bullets[b].draw(ctx);
-    };
+    }
 };
 
 Ennemy.prototype.getSize = function() {

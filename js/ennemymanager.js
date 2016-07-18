@@ -4,7 +4,7 @@ function EnnemyManager (world_size, physicsManager) {
     this.physicsManager = physicsManager;
     // temporary behavior
     this.newEnnemyTimer = 0;
-};
+}
 
 EnnemyManager.prototype.update = function(ds) {
     for (var i = this.ennemies.length - 1; i >= 0; i--) {
@@ -12,8 +12,8 @@ EnnemyManager.prototype.update = function(ds) {
         ennemy.update(ds);
         if (ennemy.isDead || ennemy.ro > Math.max(wScr(), hScr())) {
             this.ennemies.splice(i, 1);
-        };
-    };
+        }
+    }
 
     // temporary behavior
     this.newEnnemyTimer += ds;
@@ -22,15 +22,15 @@ EnnemyManager.prototype.update = function(ds) {
             this.newEnnemy(new Ennemy(this.world_size, this.physicsManager, makeGoStraight()));
         } else {
             this.newEnnemy(new Ennemy(this.world_size, this.physicsManager, makeSeeSaw()));
-        };
+        }
         this.newEnnemyTimer = 0;
-    };
+    }
 };
 
 EnnemyManager.prototype.draw = function(ctx) {
     for (var i = this.ennemies.length - 1; i >= 0; i--) {
         this.ennemies[i].draw(ctx);
-    };
+    }
 };
 
 EnnemyManager.prototype.newEnnemy = function(ennemy) {

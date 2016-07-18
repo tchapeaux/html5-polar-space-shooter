@@ -29,12 +29,12 @@ Player.prototype.update = function(ds, keysPressed) {
         // slowdown
         var direction = Math.sign(this.thetaSpeed);
         this.thetaSpeed += -direction * this.thetaAccel * ds;
-    };
+    }
     if (keysPressed.has(32) /* SPACEBAR */ ) {
         if (this.coolDownTimer >= this.shootCoolDown) {
             this.shoot();
-        };
-    };
+        }
+    }
     this.thetaSpeed = Math.min(this.thetaSpeed, this.maxThetaSpeed);
     this.thetaSpeed = Math.max(this.thetaSpeed, -this.maxThetaSpeed);
 
@@ -42,7 +42,7 @@ Player.prototype.update = function(ds, keysPressed) {
     // cooldown
     if (this.coolDownTimer < this.shootCoolDown) {
         this.coolDownTimer += ds;
-    };
+    }
 
     // movement
     this.theta += this.thetaSpeed * ds;
@@ -60,8 +60,8 @@ Player.prototype.update = function(ds, keysPressed) {
         bul.update(ds);
         if (bul.ro <= 0 || bul.isDead) {
             this.bullets.splice(b, 1);
-        };
-    };
+        }
+    }
 };
 
 Player.prototype.draw = function(ctx) {
@@ -80,7 +80,7 @@ Player.prototype.draw = function(ctx) {
 
     for (var b = this.bullets.length - 1; b >= 0; b--) {
         this.bullets[b].draw(ctx);
-    };
+    }
 
 };
 

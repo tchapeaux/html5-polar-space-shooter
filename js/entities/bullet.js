@@ -32,7 +32,7 @@ Bullet.prototype.draw = function(ctx) {
 
 Bullet.prototype.getSize = function() {
     return this.size * this.power * this.ro / this.world_size;
-}
+};
 
 Bullet.prototype.collisionWith = function(entity) {
     if (this.owner !== entity && ! entity instanceof Bullet) {

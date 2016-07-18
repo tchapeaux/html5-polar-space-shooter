@@ -3,7 +3,7 @@
 var Lifebar = function(player) {
     this.player = player;
     this.percentage = this.player.currentLives / this.player.maxLives;
-}
+};
 
 Lifebar.prototype.update = function(ds) {
     // TODO easing/tweening

@@ -5,21 +5,21 @@
 // highly inefficient :)
 function Set() {
     this.table = [];
-};
+}
 
 Set.prototype._findIndex = function(elem) {
     for (var i = this.table.length - 1; i >= 0; i--) {
         if (this.table[i] === elem) {
             return i;
         }
-    };
+    }
     return false;
 };
 
 Set.prototype.add = function(elem) {
     if (this._findIndex(elem) === false) {
         this.table.push(elem);
-    };
+    }
 };
 
 Set.prototype.has = function(elem) {
@@ -45,16 +45,16 @@ Math.sign = function (x) {
     if (x === 0 || isNaN(x))
         return x;
     return x > 0 ? 1 : -1;
-}
+};
 
 // filler Math.randomBetween
 
 Math.randomBetween = function(min, max) {
     if (max < min) {
         throw "randomBetween: max < min";
-    };
+    }
     return min + (max - min) * Math.random();
-}
+};
 
 // general maths functions
 function distance(x1, y1, x2, y2) {

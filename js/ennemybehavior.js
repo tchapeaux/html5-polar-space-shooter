@@ -30,10 +30,10 @@ Behavior.prototype.update = function(ds) {
         this.transitionTimer += ds;
         if (this.transitionTimer > this.currentState.transitionTimerDuration) {
             var newState = this.currentState.timedTransition;
-            if (newState >= this.states.length) { throw "Invalid timedTransition id" }
+            if (newState >= this.states.length) { throw "Invalid timedTransition id"; }
             this.changeState(newState);
-        };
-    };
+        }
+    }
 };
 
 Behavior.prototype.getRoSpeed = function() {

@@ -12,7 +12,7 @@ var Game = function() {
     // instantly advance the simulation of starsystem so that stars are already in place
     for (var i = 0; i < 600; i++) {
         this.starSystem.update(0.1);
-    };
+    }
 
     this.physics.addEntity(this.player);
 };
@@ -21,7 +21,7 @@ Game.prototype.update = function(ds, keysPressed) {
     if (keysPressed.has(80) /* P */) {
         this.running = !this.running;
         keysPressed.delete(80);
-    };
+    }
 
     if (this.running) {
         this.starSystem.update(ds);
@@ -32,10 +32,10 @@ Game.prototype.update = function(ds, keysPressed) {
             var ent2 = collision[1];
             ent1.collisionWith(ent2);
             ent2.collisionWith(ent1);
-        };
+        }
         this.ennemyManager.update(ds);
         this.player.update(ds, keysPressed);
-    };
+    }
 };
 
 Game.prototype.draw = function(ctx) {
