@@ -1,10 +1,17 @@
 # WHITEBOARD
 You should leave more messages for yourself, dude
 
+(vaguely prioritized)
+
++ Make bullets stay alive when their owner die (but cleverly)
++ Handle player life & death
++ Start screen
++ Different level
++ More enemy types
++ UI class for player life bar
++ Enemy types described by JSON files
 + I should write a tileanimation library for EXPLOSIONS
-+ Ennemy types described by JSON files
-+ UI class
-+ Handle ennemy and player death
+
 
 # Old stuff
 + I added a reference to the global PhysicsManager to every entity (lol)
