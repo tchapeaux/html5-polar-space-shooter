@@ -22,6 +22,9 @@ Game.prototype.update = function(ds, keysPressed) {
         this.running = !this.running;
         keysPressed.delete(80);
     }
+    if (keysPressed.has(77) /* M */) {
+        backgroundmusic.muted = !backgroundmusic.muted;
+    }
 
     if (this.running) {
         this.starSystem.update(ds);
