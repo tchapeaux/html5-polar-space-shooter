@@ -79,8 +79,8 @@ var StarSystem = function (worldSize) {
     this.worldSize = worldSize;
 
     this.stars = [];
-    this.starCreationSpeed = 30; // stars per second
-    this.maxStarsOnScreen = 1000;
+    this.starCreationSpeed = 100; // stars per second
+    this.maxStarsOnScreen = 10000;
 
     this.speedlines = [];
     this.speedLinesCreationSpeed = 10; // per second
@@ -99,7 +99,7 @@ StarSystem.prototype.draw = function(ctx) {
     // draw stars
     for (var i = this.stars.length - 1; i >= 0; i--) {
         var star = this.stars[i];
-        ctx.globalAlpha = star.ro / this.worldSize;
+        ctx.globalAlpha = (star.ro / this.worldSize) / 2;
         star.draw(ctx);
         ctx.globalAlpha = 1;
     }
