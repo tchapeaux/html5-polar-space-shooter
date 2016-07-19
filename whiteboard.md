@@ -3,9 +3,9 @@ You should leave more messages for yourself, dude
 
 (vaguely prioritized)
 
++ Better movement (quicker, no slides)
 + Make bullets stay alive when their owner die (but cleverly)
 + Handle player life & death
-+ Start screen
 + Different level
 + More enemy types
 + UI class for player life bar

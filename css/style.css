@@ -10,11 +10,20 @@ html, body {
     margin: 0px;
 }
 
-#game {
+#gameId {
   overflow: hidden;
 }
 #gameCanvas {
   position: absolute;
   top: 0px;
   left: 0px;
+}
+
+@font-face {
+    font-family: 'space_monoregular';
+    src: url('../res/spacemono-regular-webfont.woff2') format('woff2'),
+         url('../res/spacemono-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
 }

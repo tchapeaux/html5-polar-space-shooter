@@ -1,7 +1,7 @@
 "use strict";
 
 var Game = function() {
-    this.running = true;
+    this.state = Game.states.STARTING;
 
     this.worldSize = Math.min(wScr(), hScr());
     this.physics = new PhysicsManager(this.worldSize);
@@ -15,15 +15,37 @@ var Game = function() {
     }
 
     this.physics.addEntity(this.player);
+
+    this.state = Game.states.WAITING_USER_INPUT;
+    this.tutorial = new Tutorial();
+};
+
+Game.states = {
+    STARTING: 'STARTING',
+    WAITING_USER_INPUT: 'WAITING_USER_INPUT',
+    RUNNING: 'RUNNING',
+    PAUSED: 'PAUSED'
 };
 
 Game.prototype.update = function(ds, keysPressed) {
     if (keysPressed.has(80) /* P */) {
-        this.running = !this.running;
+        this.togglePause();
         keysPressed.delete(80);
     }
+    if (keysPressed.has(77) /* M */) {
+        backgroundmusic.muted = !backgroundmusic.muted;
+        keysPressed.delete(77);
+    }
 
-    if (this.running) {
+    this.player.update(ds, keysPressed);
+
+    if (this.state == Game.states.WAITING_USER_INPUT) {
+        this.starSystem.update(ds);
+        this.tutorial.update(ds, keysPressed);
+        if (this.tutorial.finished()) {
+            this.state = Game.states.RUNNING;
+        }
+    } else if (this.state == Game.states.RUNNING) {
         this.starSystem.update(ds);
         this.physics.update(ds);
         while (!this.physics.collisionQueueIsEmpty()) {
@@ -34,7 +56,6 @@ Game.prototype.update = function(ds, keysPressed) {
             ent2.collisionWith(ent1);
         }
         this.ennemyManager.update(ds);
-        this.player.update(ds, keysPressed);
     }
 };
 
@@ -46,4 +67,15 @@ Game.prototype.draw = function(ctx) {
     this.starSystem.draw(ctx);
     this.ennemyManager.draw(ctx);
     this.player.draw(ctx);
+    if (this.state == Game.states.WAITING_USER_INPUT) {
+        this.tutorial.draw(ctx);
+    }
+};
+
+Game.prototype.togglePause = function() {
+    if (this.state == Game.states.RUNNING) {
+        this.state = Game.states.PAUSED;
+    } else if (this.state == Game.states.PAUSED) {
+        this.state = Game.states.RUNNING;
+    }
 };
