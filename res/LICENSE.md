@@ -1,6 +1,4 @@
-The file in this folder are not distributed with the same license as the rest of the project.
-
-The details are given below.
+Some files in this folder are used under a specific license.
 
 # Audio
 
@@ -11,5 +9,5 @@ The details are given below.
 # Fonts
 
 + Spacemono, by colophon
-    + License: [SIL Open Font License]("SIL Open Font License.txt")
+    + License: [SIL Open Font License](http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web) (A copy of which is available in this folder)
     + https://github.com/googlefonts/spacemono
