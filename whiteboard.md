@@ -3,15 +3,14 @@ You should leave more messages for yourself, dude
 
 (vaguely prioritized)
 
-+ Better movement (quicker, no slides)
 + Make bullets stay alive when their owner die (but cleverly)
 + Handle player life & death
-+ Resource loading
-+ Different level
++ Resource loading with progress bar
++ Different levels
 + More enemy types
 + UI class for player life bar
-+ Enemy types described by JSON files
-+ I should write a tileanimation library for EXPLOSIONS
++ Enemy types and levels described by JSON files
++ EXPLOSIONS
 
 
 # Old stuff

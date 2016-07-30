@@ -7,43 +7,53 @@ var Player = function(world_size, physicsManager) {
 
     // constants
     this.ro = 4 * (world_size / 2) / 5;
-    this.maxThetaSpeed = Math.PI;
+    this.maxThetaSpeed = 4 * Math.PI;
     this.size = 15;
     this.maxLives = 10;
-    this.shootCoolDown = 0.33;
+    this.shootCoolDown = 0.2;
+    this.speedCoolDown = 0.3;
 
     // state
     this.theta = 0;
-    this.thetaSpeed = 0;
-    this.thetaAccel = Math.PI;
+    this.thetaSpeed = 2;
+    this.thetaAccel = 4 * Math.PI;
     this.currentLives = this.maxLives;
     this.isHit = false;
     this.shootCoolDownTimer = this.shootCoolDown;
+    this.speedCoolDownTimer = this.speedCoolDown;
 };
 
 Player.BULLET_SPEED = -200;
 
 Player.prototype.update = function(ds, keysPressed) {
     // speed
-    if (keysPressed.has(37) /* LEFT ARROW*/) {
+    var direction = Math.sign(this.thetaSpeed);
+    var abs_speed = Math.abs(this.thetaSpeed);
+    if (direction >= 0 && keysPressed.has(37) /* LEFT ARROW*/) {
         this.thetaSpeed += this.thetaAccel * ds;
-    } else if (keysPressed.has(39) /* RIGHT ARROW */ ) {
+        this.speedCoolDownTimer = this.speedCoolDown;
+    } else if (direction <= 0 && keysPressed.has(39) /* RIGHT ARROW */ ) {
         this.thetaSpeed -= this.thetaAccel * ds;
-    } else {
+        this.speedCoolDownTimer = this.speedCoolDown;
+    } else if (Math.abs(this.thetaSpeed) > 0) {
         // slowdown
-        var direction = Math.sign(this.thetaSpeed);
-        this.thetaSpeed += -direction * this.thetaAccel * ds;
+        abs_speed = abs_speed * (this.speedCoolDownTimer - ds) / this.speedCoolDownTimer;
+        abs_speed = Math.max(0, abs_speed);
+        this.speedCoolDownTimer = Math.max(0, this.speedCoolDownTimer - ds);
+        this.thetaSpeed = direction * abs_speed;
     }
     if (keysPressed.has(32) /* SPACEBAR */ ) {
         if (this.shootCoolDownTimer >= this.shootCoolDown) {
             this.shoot();
         }
     }
+
+    // force speed within bounds
     this.thetaSpeed = Math.min(this.thetaSpeed, this.maxThetaSpeed);
     this.thetaSpeed = Math.max(this.thetaSpeed, -this.maxThetaSpeed);
 
 
-    // cooldown
+    // Shoot cooldown
     if (this.shootCoolDownTimer < this.shootCoolDown) {
         this.shootCoolDownTimer += ds;
     }
