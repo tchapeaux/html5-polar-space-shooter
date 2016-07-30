@@ -7,7 +7,10 @@
     <title>pew pew >[]} ---- ((o))</title>
 </head>
 
-<body>
+<body onload="RESOURCES_ONLOAD()">
+
+<img src="res/player.png" id="player_img" hidden>
+<img src="res/ennemy.png" id="ennemy_img" hidden>
 
 <!-- Load js files -->
 <script type="text/javascript" src="js/helper.js"></script>
@@ -23,16 +26,20 @@
 
 
 <div id="gameId">
-    <audio autoplay="true" loop="true" id="backgroundmusic">
+    <audio autoplay="true" loop="true" muted="true" id="backgroundmusic">
         <source src="res/Smockpuppet_-_Spacer.ogg" type="audio/ogg">
         <source src="res/Smockpuppet_-_Spacer.mp3" type="audio/mpeg">
     </audio>
 
     <canvas id="gameCanvas" width ="800" height="650"></canvas>
     <script type="text/javascript">
+    "use strict";
+
+    var LOADING_RESOURCES = true;
+
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.oRequestAnimationFrame;
 
-    gameCanvas = document.getElementById("gameCanvas");
+    var gameCanvas = document.getElementById("gameCanvas");
     function wScr() { return gameCanvas.width; }
     function hScr() { return gameCanvas.height; }
     var game = new Game();
@@ -54,14 +61,23 @@
         var ds = (timestamp - oldTimestamp) / 1000;
         ds = Math.max(0, ds);
         ds = Math.min(ds, kMAX_LAG);
-        game.update(ds, keysPressed);
 
         var ctx = gameCanvas.getContext("2d");
         ctx.canvas.width  = window.innerWidth;
         ctx.canvas.height = window.innerHeight;
+
         ctx.save();
-        ctx.translate(gameCanvas.width / 2, gameCanvas.height / 2);
-        game.draw(ctx);
+
+        if (LOADING_RESOURCES) {
+            ctx.textAlign = "center";
+            ctx.fillStyle = "white";
+            ctx.font = "75px Arial";
+        } else {
+            game.update(ds, keysPressed);
+            ctx.translate(gameCanvas.width / 2, gameCanvas.height / 2);
+            game.draw(ctx);
+        }
+
         ctx.restore();
 
         requestAnimationFrame(step);
@@ -69,6 +85,13 @@
     }
 
     requestAnimationFrame(step);
+
+    function RESOURCES_ONLOAD() {
+
+        backgroundmusic.muted = false;
+        LOADING_RESOURCES = false;
+        console.log("Resource load : OK");
+    }
     </script>
 </div>
 

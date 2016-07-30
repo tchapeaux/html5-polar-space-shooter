@@ -81,6 +81,11 @@ Player.prototype.update = function(ds, keysPressed) {
 Player.prototype.draw = function(ctx) {
     var x = this.ro * Math.cos(this.theta);
     var y = this.ro * Math.sin(this.theta);
+    var player_img = document.getElementById("player_img");
+    drawCenteredImage(ctx, player_img, x, y, this.size * 4, this.size * 4);
+
+    /*
+
     ctx.beginPath();
     ctx.fillStyle = "DeepSkyBlue";
     if (this.isHit) {
@@ -91,6 +96,8 @@ Player.prototype.draw = function(ctx) {
     ctx.arc(x, y, 1.5 * this.size, 0, 2 * Math.PI);
     ctx.fill();
     ctx.stroke();
+
+    */
 
     for (var b = this.bullets.length - 1; b >= 0; b--) {
         this.bullets[b].draw(ctx);

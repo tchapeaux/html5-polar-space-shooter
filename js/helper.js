@@ -87,3 +87,7 @@ function cartesianToPolar(x, y) {
     var theta = Math.atan2(y, x); // x and y must be reversed (y, x), see atan2 doc
     return [ro, theta];
 }
+
+function drawCenteredImage(ctx, img, x, y, size_x, size_y) {
+    ctx.drawImage(img, x - size_x / 2, y - size_y / 2, size_x, size_y);
+}
