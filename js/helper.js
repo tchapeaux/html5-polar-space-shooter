@@ -88,6 +88,10 @@ function cartesianToPolar(x, y) {
     return [ro, theta];
 }
 
-function drawCenteredImage(ctx, img, x, y, size_x, size_y) {
-    ctx.drawImage(img, x - size_x / 2, y - size_y / 2, size_x, size_y);
+function drawCenteredImage(ctx, img, x, y, angle, size_x, size_y) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.drawImage(img, -size_x/2, -size_y/2, size_x, size_y);
+    ctx.restore();
 }

@@ -21,11 +21,14 @@ var Player = function(world_size, physicsManager) {
     this.isHit = false;
     this.shootCoolDownTimer = this.shootCoolDown;
     this.speedCoolDownTimer = this.speedCoolDown;
+    this.timeaccum = 0;
 };
 
 Player.BULLET_SPEED = -200;
 
 Player.prototype.update = function(ds, keysPressed) {
+    this.timeaccum += ds;
+    while (this.timeaccum > 2 * Math.PI) { this.timeaccum -= 2 * Math.PI; }
     // speed
     var direction = Math.sign(this.thetaSpeed);
     var abs_speed = Math.abs(this.thetaSpeed);
@@ -82,7 +85,7 @@ Player.prototype.draw = function(ctx) {
     var x = this.ro * Math.cos(this.theta);
     var y = this.ro * Math.sin(this.theta);
     var player_img = document.getElementById("player_img");
-    drawCenteredImage(ctx, player_img, x, y, this.size * 4, this.size * 4);
+    drawCenteredImage(ctx, player_img, x, y, this.timeaccum, this.size * 4, this.size * 4);
 
     /*
 
