@@ -114,7 +114,7 @@ StarSystem.prototype.update = function(ds) {
         star.update(ds);
 
         // delete far away stars
-        if (star.ro > this.worldSize) {
+        if (star.ro > this.worldSize * 1.5) {
             this.stars.splice(i, 1);
         }
     }
