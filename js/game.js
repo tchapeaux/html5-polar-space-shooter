@@ -37,26 +37,28 @@ Game.prototype.update = function(ds, keysPressed) {
         keysPressed.delete(77);
     }
 
-    this.player.update(ds, keysPressed);
+    if (this.state != Game.states.PAUSED) {
+        this.player.update(ds, keysPressed);
+        this.starSystem.update(ds);
 
-    if (this.state == Game.states.WAITING_USER_INPUT) {
-        this.starSystem.update(ds);
-        this.tutorial.update(ds, keysPressed);
-        if (this.tutorial.finished()) {
-            this.state = Game.states.RUNNING;
+        if (this.state == Game.states.WAITING_USER_INPUT) {
+            this.tutorial.update(ds, keysPressed);
+            if (this.tutorial.finished()) {
+                this.state = Game.states.RUNNING;
+            }
+        } else if (this.state == Game.states.RUNNING) {
+            this.physics.update(ds);
+            while (!this.physics.collisionQueueIsEmpty()) {
+                var collision = this.physics.getNextCollision();
+                var ent1 = collision[0];
+                var ent2 = collision[1];
+                ent1.collisionWith(ent2);
+                ent2.collisionWith(ent1);
+            }
+            this.ennemyManager.update(ds);
         }
-    } else if (this.state == Game.states.RUNNING) {
-        this.starSystem.update(ds);
-        this.physics.update(ds);
-        while (!this.physics.collisionQueueIsEmpty()) {
-            var collision = this.physics.getNextCollision();
-            var ent1 = collision[0];
-            var ent2 = collision[1];
-            ent1.collisionWith(ent2);
-            ent2.collisionWith(ent1);
-        }
-        this.ennemyManager.update(ds);
     }
+
 };
 
 Game.prototype.draw = function(ctx) {
