@@ -16,6 +16,7 @@ var Bullet = function(owner, world_size) {
 Bullet.prototype.update = function(ds) {
     this.ro += this.roSpeed * ds;
     this.theta += this.thetaSpeed * ds;
+    this.theta += (Math.random() - 0.5) * Math.PI / 100;
 };
 
 Bullet.prototype.draw = function(ctx) {
