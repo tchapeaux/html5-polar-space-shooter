@@ -2,19 +2,23 @@
 
 var Player = function(world_size, physicsManager) {
     this.world_size = world_size;
-    this.ro = 4 * (world_size / 2) / 5;
     this.physicsManager = physicsManager;
-    this.theta = 0;
-    this.thetaSpeed = 0;
-    this.thetaAccel = Math.PI;
+    this.bullets = [];
+
+    // constants
+    this.ro = 4 * (world_size / 2) / 5;
     this.maxThetaSpeed = Math.PI;
     this.size = 15;
     this.maxLives = 10;
+    this.shootCoolDown = 0.33;
+
+    // state
+    this.theta = 0;
+    this.thetaSpeed = 0;
+    this.thetaAccel = Math.PI;
     this.currentLives = this.maxLives;
     this.isHit = false;
-    this.bullets = [];
-    this.shootCoolDown = 0.33;
-    this.coolDownTimer = this.shootCoolDown;
+    this.shootCoolDownTimer = this.shootCoolDown;
 };
 
 Player.BULLET_SPEED = -200;
@@ -31,7 +35,7 @@ Player.prototype.update = function(ds, keysPressed) {
         this.thetaSpeed += -direction * this.thetaAccel * ds;
     }
     if (keysPressed.has(32) /* SPACEBAR */ ) {
-        if (this.coolDownTimer >= this.shootCoolDown) {
+        if (this.shootCoolDownTimer >= this.shootCoolDown) {
             this.shoot();
         }
     }
@@ -40,8 +44,8 @@ Player.prototype.update = function(ds, keysPressed) {
 
 
     // cooldown
-    if (this.coolDownTimer < this.shootCoolDown) {
-        this.coolDownTimer += ds;
+    if (this.shootCoolDownTimer < this.shootCoolDown) {
+        this.shootCoolDownTimer += ds;
     }
 
     // movement
@@ -94,7 +98,7 @@ Player.prototype.shoot = function() {
     bul.roSpeed = Player.BULLET_SPEED;
     this.bullets.push(bul);
     this.physicsManager.addEntity(bul);
-    this.coolDownTimer = 0;
+    this.shootCoolDownTimer = 0;
 };
 
 Player.prototype.collisionWith = function(entity) {
