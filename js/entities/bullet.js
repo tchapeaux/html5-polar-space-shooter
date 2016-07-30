@@ -22,8 +22,8 @@ Bullet.prototype.draw = function(ctx) {
     var x = this.ro * Math.cos(this.theta);
     var y = this.ro * Math.sin(this.theta);
     ctx.beginPath();
-    ctx.fillStyle = "white";
-    ctx.strokeStyle = "black";
+    ctx.fillStyle = "gold";
+    ctx.strokeStyle = "DarkOrange";
     var size = this.getSize();
     ctx.arc(x, y, size, 0, 2 * Math.PI);
     ctx.fill();
