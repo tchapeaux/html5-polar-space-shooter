@@ -48,6 +48,12 @@ Ennemy.prototype.draw = function(ctx) {
     var x = this.ro * Math.cos(this.theta);
     var y = this.ro * Math.sin(this.theta);
     ctx.globalAlpha = Math.min(1, this.ro / (this.world_size / 8));
+
+    var ennemy_img = document.getElementById("ennemy_img");
+    drawCenteredImage(ctx, ennemy_img, x, y, this.theta, this.getSize() * 4, this.getSize() * 4);
+
+
+    /*
     ctx.beginPath();
     ctx.fillStyle = this.behavior.currentState.fillColor;
     ctx.strokeStyle = this.behavior.currentState.strokeColor;
@@ -55,6 +61,7 @@ Ennemy.prototype.draw = function(ctx) {
     ctx.arc(x, y, size, 0, 2 * Math.PI);
     ctx.fill();
     ctx.stroke();
+    */
     ctx.globalAlpha = 1;
 
     for (var b = this.bullets.length - 1; b >= 0; b--) {
