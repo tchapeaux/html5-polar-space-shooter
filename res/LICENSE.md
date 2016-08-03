@@ -11,3 +11,8 @@ Some files in this folder are used under a specific license.
 + Spacemono, by colophon
     + License: [SIL Open Font License](http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web) (A copy of which is available in this folder)
     + https://github.com/googlefonts/spacemono
+
+# Image
+
++ Player and Ennemy sprite are by [Benjamin Palmero](http://benjaminpalmero.be)
+    + Used with permission
