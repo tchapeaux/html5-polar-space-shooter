@@ -68,6 +68,7 @@ Game.prototype.draw = function(ctx) {
     ctx.fill();
     this.starSystem.draw(ctx);
     this.ennemyManager.draw(ctx);
+    this.physics.draw(ctx);
     this.player.draw(ctx);
     if (this.state == Game.states.WAITING_USER_INPUT) {
         this.tutorial.draw(ctx);

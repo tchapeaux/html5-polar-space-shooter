@@ -2,6 +2,7 @@
 
 var PhysicsManager = function() {
     this.entities = [];
+    this.ennemy_bullets = [];
     this.collisionQueue = [];
 }
 
@@ -9,7 +10,7 @@ PhysicsManager.prototype.addEntity = function(ent) {
     this.entities.push(ent);
 };
 
-PhysicsManager.prototype.update = function() {
+PhysicsManager.prototype.update = function(ds) {
     var i, j;
 
     // remove dead entities
@@ -31,6 +32,22 @@ PhysicsManager.prototype.update = function() {
             };
         };
     };
+
+    // bullets
+    for (var b = this.ennemy_bullets.length - 1; b >= 0; b--) {
+        var bul = this.ennemy_bullets[b];
+        bul.update(ds);
+        if (bul.ro <= 0 || bul.ro > this.world_size || bul.isDead) {
+            this.ennemy_bullets.splice(b, 1);
+        };
+    };
+
+};
+
+PhysicsManager.prototype.draw = function(ctx) {
+    for (var b = this.ennemy_bullets.length - 1; b >= 0; b--) {
+        this.ennemy_bullets[b].draw(ctx);
+    }
 };
 
 PhysicsManager.prototype.getNextCollision = function() {

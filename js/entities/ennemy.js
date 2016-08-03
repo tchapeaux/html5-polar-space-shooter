@@ -5,7 +5,6 @@ var Ennemy = function(world_size, physicsManager, behavior) {
     this.world_size = world_size;
     this.physicsManager = physicsManager;
     this.theta = Math.random() * 2 * Math.PI;
-    this.bullets = [];
     this.life = 3;
     this.isDead = false;
     this.size = 30;
@@ -33,15 +32,6 @@ Ennemy.prototype.update = function(ds) {
     if (this.life < 0) {
         this.isDead = true;
     }
-
-    // bullets
-    for (var b = this.bullets.length - 1; b >= 0; b--) {
-        var bul = this.bullets[b];
-        bul.update(ds);
-        if (bul.ro <= 0 || bul.ro > this.world_size || bul.isDead) {
-            this.bullets.splice(b, 1);
-        }
-    }
 };
 
 Ennemy.prototype.draw = function(ctx) {
@@ -63,10 +53,6 @@ Ennemy.prototype.draw = function(ctx) {
     ctx.stroke();
     */
     ctx.globalAlpha = 1;
-
-    for (var b = this.bullets.length - 1; b >= 0; b--) {
-        this.bullets[b].draw(ctx);
-    }
 };
 
 Ennemy.prototype.getSize = function() {
@@ -78,7 +64,7 @@ Ennemy.prototype.shoot = function() {
     var bul = new Bullet(this, this.world_size);
     bul.roSpeed = this.behavior.getBulletSpeed();
     bul.power /= 2;
-    this.bullets.push(bul);
+    this.physicsManager.ennemy_bullets.push(bul);
     this.physicsManager.addEntity(bul);
     this.coolDownTimer = 0;
 };

@@ -36,8 +36,11 @@ Bullet.prototype.getSize = function() {
 };
 
 Bullet.prototype.collisionWith = function(entity) {
-    if (this.owner !== entity && ! entity instanceof Bullet) {
-        //console.log(this.owner, entity, this);
-        this.isDead = true;
+    if (this.owner === entity) {
+        return
     }
+    if (this.owner instanceof Player && entity instanceof Bullet) {
+        return
+    }
+    this.isDead = true;
 };
