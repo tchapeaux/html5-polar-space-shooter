@@ -14,5 +14,5 @@ Some files in this folder are used under a specific license.
 
 # Image
 
-+ Player and Ennemy sprite are by [Benjamin Palmero](http://benjaminpalmero.be)
++ Custom sprites are by [Benjamin Palmero](http://benjaminpalmero.be)
     + Used with permission
