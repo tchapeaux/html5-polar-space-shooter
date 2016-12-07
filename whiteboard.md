@@ -3,7 +3,6 @@ You should leave more messages for yourself, dude
 
 (vaguely prioritized)
 
-+ Make bullets stay alive when their owner die (but cleverly)
 + Handle player life & death
 + Resource loading with progress bar
 + Different levels
