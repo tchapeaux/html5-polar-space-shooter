@@ -38,15 +38,15 @@ Tutorial.prototype.draw = function(ctx) {
     ctx.fillStyle = "white";
     ctx.font = "20px space_monoregular";
     if (this.steps == 0) {
-        ctx.fillText("Move using arrows | Press space to fire", 0, 0);
-        ctx.fillText(">> Fire to continue <<", 0, hScr() / 3);
-    } else if (this.steps == 1) {
-        ctx.fillText("Press p to pause | Press m to mute sound", 0, 0);
-        ctx.fillText(">> LET'S GO <<", 0, hScr() / 3);
+        ctx.fillText("MOVE : arrow keys", 0, -50);
+        ctx.fillText("FIRE : space key", 0, -25);
+        ctx.fillText("PAUSE : p key", 0, 0);
+        ctx.fillText("MUTE : m key", 0, 25);
+        ctx.fillText(">> Fire to start mission <<", 0, hScr() / 3);
     }
 
 };
 
 Tutorial.prototype.finished = function() {
-    return this.steps > 1;
+    return this.steps > 0;
 };
