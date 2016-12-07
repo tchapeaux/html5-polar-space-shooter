@@ -92,6 +92,10 @@ function drawCenteredImage(ctx, img, x, y, angle, size_x, size_y) {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle);
+    // quick-fix for animation
+    if (size_x < 0) {
+        ctx.scale(-1, 1);
+    }
     ctx.drawImage(img, -size_x/2, -size_y/2, size_x, size_y);
     ctx.restore();
 }
