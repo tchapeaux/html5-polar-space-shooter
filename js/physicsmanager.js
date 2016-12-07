@@ -3,6 +3,7 @@
 var PhysicsManager = function() {
     this.entities = [];
     this.ennemy_bullets = [];
+    this.explosions = [];
     this.collisionQueue = [];
 }
 
@@ -42,11 +43,26 @@ PhysicsManager.prototype.update = function(ds) {
         };
     };
 
+    // explosions
+    for (var e = this.explosions.length - 1; e >= 0; e--) {
+        var expl = this.explosions[e];
+        expl.update(ds);
+        if (expl.isDead) {
+            this.explosions.splice(e, 1);
+        };
+    };
+
 };
 
 PhysicsManager.prototype.draw = function(ctx) {
+    // bullets
     for (var b = this.ennemy_bullets.length - 1; b >= 0; b--) {
         this.ennemy_bullets[b].draw(ctx);
+    }
+
+    // explosions
+    for (var e = this.explosions.length - 1; e >= 0; e--) {
+        this.explosions[e].draw(ctx);
     }
 };
 

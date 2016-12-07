@@ -12,6 +12,7 @@
 <img src="res/player.svg" id="player_img" hidden>
 <img src="res/ennemy.svg" id="ennemy_img" hidden>
 <img src="res/missile.svg" id="missile_img" hidden>
+<img src="res/explosion.svg" id="explosion_img" hidden>
 
 <!-- Load js files -->
 <script type="text/javascript" src="js/helper.js"></script>
@@ -21,6 +22,7 @@
 <script type="text/javascript" src="js/entities/ennemy.js"></script>
 <script type="text/javascript" src="js/ennemybehavior.js"></script>
 <script type="text/javascript" src="js/entities/player.js"></script>
+<script type="text/javascript" src="js/entities/explosion.js"></script>
 <script type="text/javascript" src="js/physicsmanager.js"></script>
 <script type="text/javascript" src="js/game.js"></script>
 <script type="text/javascript" src="js/ui/tutorial.js"></script>
@@ -69,13 +71,14 @@
 
         ctx.save();
 
+        ctx.translate(gameCanvas.width / 2, gameCanvas.height / 2);
         if (LOADING_RESOURCES) {
             ctx.textAlign = "center";
             ctx.fillStyle = "white";
             ctx.font = "75px Arial";
+            ctx.fillText("Loading resources", 0, 0);
         } else {
             game.update(ds, keysPressed);
-            ctx.translate(gameCanvas.width / 2, gameCanvas.height / 2);
             game.draw(ctx);
         }
 

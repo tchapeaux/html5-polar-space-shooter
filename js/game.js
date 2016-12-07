@@ -18,6 +18,8 @@ var Game = function() {
 
     this.state = Game.states.WAITING_USER_INPUT;
     this.tutorial = new Tutorial();
+
+    this.physics.explosions.push(new Explosion(this.worldSize / 2, 0, this.worldSize));
 };
 
 Game.states = {

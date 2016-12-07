@@ -9,7 +9,6 @@ You should leave more messages for yourself, dude
 + More enemy types
 + UI class for player life bar
 + Enemy types and levels described by JSON files
-+ EXPLOSIONS
 
 
 # Old stuff
