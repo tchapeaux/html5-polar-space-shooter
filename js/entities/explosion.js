@@ -31,8 +31,8 @@ Explosion.prototype.draw = function(ctx) {
 
 
     var ratio = this.animationCounter / this.animationLength;
-    var onscreen_size_x = this.getSize() * (1 - ratio);
-    var onscreen_size_y = this.getSize() * (1 - ratio);
+    var onscreen_size_x = this.getSize() * (1 + ratio);
+    var onscreen_size_y = this.getSize() * (1 + ratio);
     var explosion_img = document.getElementById("explosion_img");
     ctx.globalAlpha = 1 - ratio;
     drawCenteredImage(ctx, explosion_img, x, y, angle, onscreen_size_x, onscreen_size_y);
