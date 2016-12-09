@@ -18,7 +18,7 @@ EnnemyManager.prototype.update = function(ds) {
     // temporary behavior
     this.newEnnemyTimer += ds;
     if (this.newEnnemyTimer > 3) {
-        if (Math.random() > 0.1) {
+        if (Math.random() > 0.75) {
             this.newEnnemy(new Ennemy(this.world_size, this.physicsManager, makeGoStraight()));
         } else {
             this.newEnnemy(new Ennemy(this.world_size, this.physicsManager, makeSeeSaw()));

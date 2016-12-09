@@ -12,10 +12,10 @@ var Bullet = function(owner, world_size) {
     this.isDead = false;
     this.size = 30; // actual on-screen size might be affected by other factors
 
-    this.animationFrameCounter = 0;
     this.animationFrameTotalCount = 2;
+    this.animationFrameCounter = 0;
     this.animationPeriod = 0.37;
-    this.animationPeriodCounter = 0
+    this.animationPeriodCounter = Math.random() * this.animationPeriod;  // start at random point in period
 };
 
 Bullet.prototype.update = function(ds) {
@@ -56,10 +56,16 @@ Bullet.prototype.getSize = function() {
 };
 
 Bullet.prototype.collisionWith = function(entity) {
+    // Ignore owner
     if (this.owner === entity) {
         return
     }
+    // Player bullets ignore other bullets
     if (this.owner instanceof Player && entity instanceof Bullet) {
+        return
+    }
+    // Ennemy bullets ignore bullets from the same entity
+    if (entity instanceof Bullet && this.owner === entity.owner) {
         return
     }
     this.isDead = true;
