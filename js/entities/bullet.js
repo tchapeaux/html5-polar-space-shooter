@@ -1,10 +1,9 @@
 "use strict";
 
-var Bullet = function(owner, world_size) {
+var Bullet = function(owner) {
     this.owner = owner;
     this.ro = owner.ro;
     this.theta = owner.theta;
-    this.world_size = world_size;
     this.first_ro = this.ro;
     this.roSpeed = 0;
     this.thetaSpeed = 0;
@@ -52,7 +51,7 @@ Bullet.prototype.draw = function(ctx) {
 };
 
 Bullet.prototype.getSize = function() {
-    return this.size * this.power * this.ro / this.world_size;
+    return this.size * this.power * this.ro / worldSize();
 };
 
 Bullet.prototype.collisionWith = function(entity) {

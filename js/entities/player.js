@@ -1,12 +1,10 @@
 "use strict";
 
-var Player = function(world_size, physicsManager) {
-    this.world_size = world_size;
-    this.physicsManager = physicsManager;
+var Player = function() {
     this.bullets = [];
 
     // constants
-    this.ro = 4 * (world_size / 2) / 5;
+    this.ro = 4 * (worldSize() / 2) / 5;
     this.maxThetaSpeed = 4 * Math.PI;
     this.size = 15;
     this.maxLives = 10;
@@ -118,10 +116,10 @@ Player.prototype.getSize = function() {
 
 Player.prototype.shoot = function() {
     // Fire one bullet
-    var bul = new Bullet(this, this.world_size);
+    var bul = new Bullet(this);
     bul.roSpeed = Player.BULLET_SPEED;
     this.bullets.push(bul);
-    this.physicsManager.addEntity(bul);
+    game.physics.addEntity(bul);
     this.shootCoolDownTimer = 0;
 };
 

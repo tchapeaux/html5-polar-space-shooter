@@ -4,11 +4,10 @@ var Game = function() {
     this.state = Game.states.STARTING;
 
     // World elements
-    this.worldSize = Math.min(wScr(), hScr());
-    this.physics = new PhysicsManager(this.worldSize);
-    this.player = new Player(this.worldSize, this.physics);
-    this.starSystem = new StarSystem(this.worldSize);
-    this.ennemyManager = new EnnemyManager(this.worldSize, this.physics);
+    this.physics = new PhysicsManager();
+    this.player = new Player();
+    this.starSystem = new StarSystem();
+    this.ennemyManager = new EnnemyManager();
 
     // UI elements
     this.lifebar = new Lifebar(this.player);

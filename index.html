@@ -45,6 +45,7 @@
     var gameCanvas = document.getElementById("gameCanvas");
     function wScr() { return gameCanvas.width; }
     function hScr() { return gameCanvas.height; }
+    function worldSize() { return Math.min(wScr(), hScr()); }
     var game = new Game();
 
     var keysPressed = new Set();

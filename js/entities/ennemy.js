@@ -1,15 +1,15 @@
 "use strict";
 
-var Ennemy = function(world_size, physicsManager, behavior) {
+var Ennemy = function(behavior) {
     this.ro = 0;
-    this.world_size = world_size;
-    this.physicsManager = physicsManager;
     this.theta = Math.random() * 2 * Math.PI;
     this.life = 3;
     this.isDead = false;
     this.size = 30;
     this.behavior = behavior;
     this.fireTimer = 0;
+
+    this.ennemy_img = document.getElementById("ennemy_img");
 };
 
 Ennemy.prototype.update = function(ds) {
@@ -31,17 +31,16 @@ Ennemy.prototype.update = function(ds) {
     }
     if (this.life < 0) {
         this.isDead = true;
-        this.physicsManager.explosions.push(new Explosion(this.ro, this.theta, this.world_size));
+        game.physics.explosions.push(new Explosion(this.ro, this.theta));
     }
 };
 
 Ennemy.prototype.draw = function(ctx) {
     var x = this.ro * Math.cos(this.theta);
     var y = this.ro * Math.sin(this.theta);
-    ctx.globalAlpha = Math.min(1, this.ro / (this.world_size / 8));
+    ctx.globalAlpha = Math.min(1, this.ro / (worldSize() / 8));
 
-    var ennemy_img = document.getElementById("ennemy_img");
-    drawCenteredImage(ctx, ennemy_img, x, y, this.theta, this.getSize() * 4, this.getSize() * 4);
+    drawCenteredImage(ctx, this.ennemy_img, x, y, this.theta, this.getSize() * 4, this.getSize() * 4);
 
 
     /*
@@ -57,16 +56,16 @@ Ennemy.prototype.draw = function(ctx) {
 };
 
 Ennemy.prototype.getSize = function() {
-    return this.size * (this.ro / this.world_size);
+    return this.size * (this.ro / worldSize());
 };
 
 Ennemy.prototype.shoot = function() {
     // Fire one bullet
-    var bul = new Bullet(this, this.world_size);
+    var bul = new Bullet(this);
     bul.roSpeed = this.behavior.getBulletSpeed();
     bul.power /= 2;
-    this.physicsManager.ennemy_bullets.push(bul);
-    this.physicsManager.addEntity(bul);
+    game.physics.ennemy_bullets.push(bul);
+    game.physics.addEntity(bul);
     this.coolDownTimer = 0;
 };
 

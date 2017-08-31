@@ -1,9 +1,8 @@
 "use strict";
 
-var Explosion = function(ro, theta, world_size) {
+var Explosion = function(ro, theta) {
     this.ro = ro;
     this.theta = theta;
-    this.world_size = world_size;
     this.roSpeed = 0;
     this.thetaSpeed = 0;
     this.isDead = false;
@@ -41,7 +40,7 @@ Explosion.prototype.draw = function(ctx) {
 };
 
 Explosion.prototype.getSize = function() {
-    return this.size * this.ro * 3 / this.world_size;
+    return this.size * this.ro * 3 / game.world_size;
 };
 
 Explosion.prototype.collisionWith = function(entity) {
