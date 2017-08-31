@@ -65,10 +65,14 @@ Player.prototype.update = function(ds, keysPressed) {
     this.theta += this.thetaSpeed * ds;
 
     // being hit
-    // (TODO)
-    //if (this.isHit) {
-    //
-    //};
+    if (this.isHit) {
+        this.currentLives -= 1;
+        // no death for DEBUG
+        if (this.currentLives == 0) {
+            this.currentLives = this.maxLives;
+        }
+        this.isHit = false;
+    };
 
 
     // bullets

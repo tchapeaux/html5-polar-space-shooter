@@ -3,11 +3,16 @@
 var Game = function() {
     this.state = Game.states.STARTING;
 
+    // World elements
     this.worldSize = Math.min(wScr(), hScr());
     this.physics = new PhysicsManager(this.worldSize);
     this.player = new Player(this.worldSize, this.physics);
     this.starSystem = new StarSystem(this.worldSize);
     this.ennemyManager = new EnnemyManager(this.worldSize, this.physics);
+
+    // UI elements
+    this.lifebar = new Lifebar(this.player);
+    this.tutorial = new Tutorial();
 
     // instantly advance the simulation of starsystem so that stars are already in place
     for (var i = 0; i < 600; i++) {
@@ -17,7 +22,6 @@ var Game = function() {
     this.physics.addEntity(this.player);
 
     this.state = Game.states.WAITING_USER_INPUT;
-    this.tutorial = new Tutorial();
 };
 
 Game.states = {
@@ -40,6 +44,7 @@ Game.prototype.update = function(ds, keysPressed) {
     if (this.state != Game.states.PAUSED) {
         this.player.update(ds, keysPressed);
         this.starSystem.update(ds);
+        this.lifebar.update(ds);
 
         if (this.state == Game.states.WAITING_USER_INPUT) {
             this.tutorial.update(ds, keysPressed);
@@ -72,6 +77,8 @@ Game.prototype.draw = function(ctx) {
     this.player.draw(ctx);
     if (this.state == Game.states.WAITING_USER_INPUT) {
         this.tutorial.draw(ctx);
+    } else {
+        this.lifebar.draw(ctx);
     }
 };
 
