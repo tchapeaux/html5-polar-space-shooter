@@ -31,7 +31,7 @@ Ennemy.prototype.update = function(ds) {
     }
     if (this.life < 0) {
         this.isDead = true;
-        game.physics.explosions.push(new Explosion(this.ro, this.theta));
+        game.physics.explosions.push(new Explosion(this.ro, this.theta, 30));
     }
 };
 

@@ -1,16 +1,18 @@
 "use strict";
 
-var Explosion = function(ro, theta) {
+var Explosion = function(ro, theta, size) {
     this.ro = ro;
     this.theta = theta;
     this.roSpeed = 0;
     this.thetaSpeed = 0;
     this.isDead = false;
-    this.size = 30; // actual on-screen size might be affected by other factors
+    this.size = size; // actual on-screen size might be affected by other factors
 
     this.animationCounter = 0;
     this.animationLength = 1;
     this.animationSpeed = 3 * Math.PI; // rad / s
+
+    this.explosion_img = document.getElementById("explosion_img");
 };
 
 Explosion.prototype.update = function(ds) {
@@ -32,15 +34,14 @@ Explosion.prototype.draw = function(ctx) {
     var ratio = this.animationCounter / this.animationLength;
     var onscreen_size_x = this.getSize() * (1 + ratio);
     var onscreen_size_y = this.getSize() * (1 + ratio);
-    var explosion_img = document.getElementById("explosion_img");
     ctx.globalAlpha = 1 - ratio;
-    drawCenteredImage(ctx, explosion_img, x, y, angle, onscreen_size_x, onscreen_size_y);
+    drawCenteredImage(ctx, this.explosion_img, x, y, angle, onscreen_size_x, onscreen_size_y);
     ctx.globalAlpha = 1;
 
 };
 
 Explosion.prototype.getSize = function() {
-    return this.size * this.ro * 3 / game.world_size;
+    return this.size * this.ro * 3 / worldSize();
 };
 
 Explosion.prototype.collisionWith = function(entity) {

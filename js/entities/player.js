@@ -20,6 +20,8 @@ var Player = function() {
     this.shootCoolDownTimer = this.shootCoolDown;
     this.speedCoolDownTimer = this.speedCoolDown;
     this.timeaccum = 0;
+
+    this.player_img = document.getElementById("player_img");
 };
 
 Player.BULLET_SPEED = -200;
@@ -65,13 +67,14 @@ Player.prototype.update = function(ds, keysPressed) {
     // being hit
     if (this.isHit) {
         this.currentLives -= 1;
+        this.isHit = false;
+        game.physics.explosions.push(new Explosion(this.ro, this.theta, 10));
         game.audio.play_playerhit();
 
         // no death for DEBUG
         if (this.currentLives == 0) {
             this.currentLives = this.maxLives;
         }
-        this.isHit = false;
     };
 
 
@@ -88,8 +91,7 @@ Player.prototype.update = function(ds, keysPressed) {
 Player.prototype.draw = function(ctx) {
     var x = this.ro * Math.cos(this.theta);
     var y = this.ro * Math.sin(this.theta);
-    var player_img = document.getElementById("player_img");
-    drawCenteredImage(ctx, player_img, x, y, this.timeaccum, this.size * 4, this.size * 4);
+    drawCenteredImage(ctx, this.player_img, x, y, this.timeaccum, this.size * 4, this.size * 4);
 
     /*
 
