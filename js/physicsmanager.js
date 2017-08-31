@@ -2,6 +2,9 @@
 
 var PhysicsManager = function() {
     this.entities = [];
+    // Ennemy bullets are stored at the PhysicsManager level
+    // So that when an ennemy is dead, its bullets are still accessible
+    // A bullet owner is still identified by the Bullet.owner attribute
     this.ennemy_bullets = [];
     this.explosions = [];
     this.collisionQueue = [];
@@ -22,19 +25,18 @@ PhysicsManager.prototype.update = function(ds) {
         };
     };
 
-    // iterate over every couple of entities
+    // iterate over every couple of entities to find collisions
     for (i = this.entities.length - 1; i >= 0; i--) {
         for (j = i - 1; j >= 0; j--) {
             var ent1 = this.entities[i];
             var ent2 = this.entities[j];
             if (interesect(ent1, ent2)) {
-                // console.log(ent1, ent2, "intersects");
                 this.collisionQueue.push([ent1, ent2]);
             };
         };
     };
 
-    // bullets
+    // bullets update
     for (var b = this.ennemy_bullets.length - 1; b >= 0; b--) {
         var bul = this.ennemy_bullets[b];
         bul.update(ds);
