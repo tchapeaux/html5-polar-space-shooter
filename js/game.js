@@ -9,6 +9,9 @@ var Game = function() {
     this.starSystem = new StarSystem();
     this.ennemyManager = new EnnemyManager();
 
+    // Audio
+    this.audio = new AudioManager();
+
     // UI elements
     this.lifebar = new Lifebar(this.player);
     this.tutorial = new Tutorial();

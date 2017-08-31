@@ -65,6 +65,8 @@ Player.prototype.update = function(ds, keysPressed) {
     // being hit
     if (this.isHit) {
         this.currentLives -= 1;
+        game.audio.play_playerhit();
+
         // no death for DEBUG
         if (this.currentLives == 0) {
             this.currentLives = this.maxLives;
