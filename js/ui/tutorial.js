@@ -34,6 +34,8 @@ Tutorial.prototype.draw = function(ctx) {
     ctx.fillStyle = this.currenttitlecolor;
     ctx.font = "75px space_monoregular";
     ctx.fillText("SPACEPOLAR", 0, -hScr()/3);
+    ctx.font = "20px space_monoregular";
+    ctx.fillText("By PAPO", 0, -hScr()/3 + 50);
 
     ctx.fillStyle = "white";
     ctx.font = "20px space_monoregular";
