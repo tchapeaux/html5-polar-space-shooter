@@ -8,8 +8,8 @@ var Star = function() {
     this.thetaSpeed = Math.random() * 0.5;
     this.thetaAccel = 0;
     this.color = "cyan";
-    if (Math.random() < 0.1) { this.color = "gold"; }
-    this.size = 20;
+    if (Math.random() < 0.3) { this.color = "gold"; }
+    this.size = Math.random() * 5 + 10;
 };
 
 Star.prototype.draw = function(ctx) {
@@ -20,7 +20,7 @@ Star.prototype.draw = function(ctx) {
     var y = _[1];
     var size = this.getSize();
     ctx.beginPath();
-    ctx.rect(x - size / 2, y - size / 2, size, size);
+    ctx.arc(x - size / 2, y - size / 2, size, 0, 2 * Math.PI);
     ctx.fill();
 };
 
@@ -75,7 +75,7 @@ SpeedLine.prototype.getWidth = function(ratio) {
 
 var StarSystem = function () {
     this.stars = [];
-    this.starCreationSpeed = 100; // stars per second
+    this.starCreationSpeed = 75; // stars per second
     this.maxStarsOnScreen = 10000;
 
     this.speedlines = [];
@@ -95,7 +95,7 @@ StarSystem.prototype.draw = function(ctx) {
     // draw stars
     for (var i = this.stars.length - 1; i >= 0; i--) {
         var star = this.stars[i];
-        ctx.globalAlpha = (star.ro / worldSize()) / 2;
+        ctx.globalAlpha = 0.5;
         star.draw(ctx);
         ctx.globalAlpha = 1;
     }
