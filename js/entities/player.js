@@ -8,27 +8,36 @@ var Player = function() {
     this.maxThetaSpeed = 4 * Math.PI;
     this.size = 15;
     this.maxLives = 10;
+    // shoot cooldown - time between two consecutive shot
     this.shootCoolDown = 0.2;
+    // speed cooldown - time to slow down to a stop when releasing move keys
     this.speedCoolDown = 0.3;
+    // disoriented cooldown - 'disoriented' state duration (cannot shoot after being hit)
+    this.disorientedCoolDown = 2;
 
     // state
     this.theta = 0;
-    this.thetaSpeed = 2;
+    this.thetaSpeed = 0;
     this.thetaAccel = 4 * Math.PI;
     this.currentLives = this.maxLives;
     this.isHit = false;
-    this.shootCoolDownTimer = this.shootCoolDown;
-    this.speedCoolDownTimer = this.speedCoolDown;
-    this.timeaccum = 0;
+    // Timers are activated by being set to a value above 0
+    // They will tick down until reaching 0 again
+    this.shootCoolDownTimer = 0;
+    this.speedCoolDownTimer = 0;
+    this.disorientedCoolDownTimer = 0;
+    // variable to control the rotation of the player
+    this.rotation_timeaccum = 0;
 
     this.player_img = document.getElementById("player_img");
+    this.player_hit_img = document.getElementById("player_hit_img");
 };
 
 Player.BULLET_SPEED = -200;
 
 Player.prototype.update = function(ds, keysPressed) {
-    this.timeaccum += ds;
-    while (this.timeaccum > 2 * Math.PI) { this.timeaccum -= 2 * Math.PI; }
+    this.rotation_timeaccum += ds;
+    while (this.rotation_timeaccum > 2 * Math.PI) { this.rotation_timeaccum -= 2 * Math.PI; }
     // speed
     var direction = Math.sign(this.thetaSpeed);
     var abs_speed = Math.abs(this.thetaSpeed);
@@ -45,8 +54,9 @@ Player.prototype.update = function(ds, keysPressed) {
         this.speedCoolDownTimer = Math.max(0, this.speedCoolDownTimer - ds);
         this.thetaSpeed = direction * abs_speed;
     }
+
     if (keysPressed.has(32) /* SPACEBAR */ ) {
-        if (this.shootCoolDownTimer >= this.shootCoolDown) {
+        if (this.shootCoolDownTimer <= 0) {
             this.shoot();
         }
     }
@@ -57,8 +67,13 @@ Player.prototype.update = function(ds, keysPressed) {
 
 
     // Shoot cooldown
-    if (this.shootCoolDownTimer < this.shootCoolDown) {
-        this.shootCoolDownTimer += ds;
+    if (this.shootCoolDownTimer > 0) {
+        this.shootCoolDownTimer -= ds;
+    }
+
+    // Disoriented cooldown
+    if (this.disorientedCoolDownTimer > 0) {
+        this.disorientedCoolDownTimer -= ds;
     }
 
     // movement
@@ -68,10 +83,10 @@ Player.prototype.update = function(ds, keysPressed) {
     if (this.isHit) {
         this.currentLives -= 1;
         this.isHit = false;
-        game.physics.explosions.push(new Explosion(this.ro, this.theta, 10));
         game.audio.play_playerhit();
+        this.disorientedCoolDownTimer = this.disorientedCoolDown;
 
-        // no death for DEBUG
+        // death disabled for DEBUG
         if (this.currentLives == 0) {
             this.currentLives = this.maxLives;
         }
@@ -91,7 +106,11 @@ Player.prototype.update = function(ds, keysPressed) {
 Player.prototype.draw = function(ctx) {
     var x = this.ro * Math.cos(this.theta);
     var y = this.ro * Math.sin(this.theta);
-    drawCenteredImage(ctx, this.player_img, x, y, this.timeaccum, this.size * 4, this.size * 4);
+    var img = this.player_img;
+    if (this.disorientedCoolDownTimer > 0) {
+        img = this.player_hit_img;
+    }
+    drawCenteredImage(ctx, img, x, y, this.rotation_timeaccum, this.size * 4, this.size * 4);
 
     /*
 
@@ -124,7 +143,7 @@ Player.prototype.shoot = function() {
     bul.roSpeed = Player.BULLET_SPEED;
     this.bullets.push(bul);
     game.physics.addEntity(bul);
-    this.shootCoolDownTimer = 0;
+    this.shootCoolDownTimer = this.shootCoolDown;
 };
 
 Player.prototype.collisionWith = function(entity) {
