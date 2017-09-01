@@ -31,18 +31,21 @@
 <script src="https://cdn.jsdelivr.net/npm/howler@2.0.4/dist/howler.min.js"></script>
 
 <div id="gameId">
-    <!-- should be handled by game.audio (AudioManager instance)
-    <audio autoplay="true" loop="true" muted="true" id="backgroundmusic">
-        <source src="res/Smockpuppet_-_Spacer.ogg" type="audio/ogg">
-        <source src="res/Smockpuppet_-_Spacer.mp3" type="audio/mpeg">
-    </audio>
-    -->
-
     <canvas id="gameCanvas" width ="800" height="650"></canvas>
     <script type="text/javascript">
     "use strict";
 
     var LOADING_RESOURCES = true;
+
+    // load audio
+    var backgroundmusic = new Howl({
+        src: ['res/Smockpuppet_-_Spacer.ogg', 'res/Smockpuppet_-_Spacer.mp3'],
+        autoplay: true,
+        loop: true
+    });
+    var playerhit_fx = new Howl({
+        src: ['res/NFF-alien-hit.wav'],
+    });
 
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.oRequestAnimationFrame;
 

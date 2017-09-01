@@ -1,17 +1,19 @@
 "use strict";
 
 var AudioManager = function() {
-    this.bgm = new Howl({
-        src: ['res/Smockpuppet_-_Spacer.ogg', 'res/Smockpuppet_-_Spacer.mp3'],
-        autoplay: true,
-        loop: true
-    });
+    // fetch Howl instances from global namespace
+    this.bgm = backgroundmusic;
+    this.playerhit_fx = playerhit_fx;
 
-    this.playerhit_fx = new Howl({
-        src: ['res/NFF-alien-hit.wav'],
-    });
+    this.global_mute = false;
 };
 
 AudioManager.prototype.play_playerhit = function() {
     this.playerhit_fx.play();
 };
+
+AudioManager.prototype.toggle_mute = function() {
+    this.global_mute = !this.global_mute;
+    this.bgm.mute(this.global_mute);
+    this.playerhit_fx.mute(this.global_mute);
+}
