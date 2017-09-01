@@ -30,7 +30,6 @@ Explosion.prototype.draw = function(ctx) {
     var y = this.ro * Math.sin(this.theta);
     var angle = this.animationCounter * this.animationSpeed;
 
-
     var ratio = this.animationCounter / this.animationLength;
     var onscreen_size_x = this.getSize() * (1 + ratio);
     var onscreen_size_y = this.getSize() * (1 + ratio);

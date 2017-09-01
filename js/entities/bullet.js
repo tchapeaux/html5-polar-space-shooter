@@ -68,4 +68,6 @@ Bullet.prototype.collisionWith = function(entity) {
         return
     }
     this.isDead = true;
+    game.physics.explosions.push(new Explosion(this.ro, this.theta, 10));
+
 };

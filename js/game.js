@@ -73,10 +73,20 @@ Game.prototype.draw = function(ctx) {
     ctx.fillStyle = "black";
     ctx.rect(-wScr() / 2, -hScr() / 2, wScr(), hScr());
     ctx.fill();
+
+    // Order has its importance: elements drawn last are drawn 'above' others
+
+    // First (bottom) layer is the background (star system)
     this.starSystem.draw(ctx);
+
+    // Ennemy + player layer
     this.ennemyManager.draw(ctx);
-    this.physics.draw(ctx);
     this.player.draw(ctx);
+
+    // FX (explosions) layer
+    this.physics.draw(ctx);
+
+    // UI layer
     if (this.state == Game.states.WAITING_USER_INPUT) {
         this.tutorial.draw(ctx);
     } else {
