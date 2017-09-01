@@ -16,21 +16,21 @@ Lifebar.prototype.draw = function(ctx) {
     var width = wScr() / 3;
     var lifeWidth = width * this.current_life_ratio;
     var height = 10;
-    var outline = 3;
+    var outline = 1;
 
-    ctx.globalAlpha = 0.5;
+    ctx.globalAlpha = 1;
 
     ctx.fillStyle = "white";
     ctx.beginPath();
     ctx.rect(orig_x - outline, orig_y - outline, width + 2 * outline, height + 2 * outline);
-    ctx.fill();
+    ctx.stroke();
 
-    ctx.fillStyle = "black";
-    ctx.beginPath();
-    ctx.rect(orig_x - 1, orig_y - 1, width + 2, height + 2);
-    ctx.fill();
+    // ctx.fillStyle = "black";
+    // ctx.beginPath();
+    // ctx.rect(orig_x - 1, orig_y - 1, width + 2, height + 2);
+    // ctx.fill();
 
-    ctx.fillStyle = "yellow";
+    ctx.fillStyle = "crimson";
     ctx.beginPath();
     ctx.rect(orig_x, orig_y, lifeWidth, height);
     ctx.fill();

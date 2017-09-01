@@ -5,10 +5,10 @@ var Star = function() {
     this.roSpeed = 50;
     this.roAccel = 0;
     this.theta = Math.random() * 2 * Math.PI;
-    this.thetaSpeed = Math.random() * 0.5;
+    this.thetaSpeed = Math.random() * 0.1;
     this.thetaAccel = 0;
-    this.color = "cyan";
-    if (Math.random() < 0.3) { this.color = "gold"; }
+    this.color = "#347543";
+    if (Math.random() < 0.3) { this.color = "#41a6af"; }
     this.size = Math.random() * 5 + 10;
 };
 
@@ -37,8 +37,8 @@ Star.prototype.getSize = function() {
 
 var SpeedLine = function() {
     this.theta = Math.random() * 2 * Math.PI;
-    this.length = Math.randomBetween(100, 400);
-    this.width = 5;
+    this.length = Math.randomBetween(50, 100);
+    this.width = 3;
     this.ro = 0;
     this.roSpeed = Math.randomBetween(100, 400);
     this.color = "white";
@@ -75,12 +75,12 @@ SpeedLine.prototype.getWidth = function(ratio) {
 
 var StarSystem = function () {
     this.stars = [];
-    this.starCreationSpeed = 75; // stars per second
-    this.maxStarsOnScreen = 10000;
+    this.starCreationSpeed = 10; // stars per second
+    this.maxStarsOnScreen = 5000;
 
     this.speedlines = [];
-    this.speedLinesCreationSpeed = 10; // per second
-    this.maxSpeedLinesOnScreen = 100;
+    this.speedLinesCreationSpeed = 5; // per second
+    this.maxSpeedLinesOnScreen = 50;
 };
 
 StarSystem.prototype.draw = function(ctx) {
@@ -95,7 +95,7 @@ StarSystem.prototype.draw = function(ctx) {
     // draw stars
     for (var i = this.stars.length - 1; i >= 0; i--) {
         var star = this.stars[i];
-        ctx.globalAlpha = 0.5;
+        ctx.globalAlpha = 1;
         star.draw(ctx);
         ctx.globalAlpha = 1;
     }
