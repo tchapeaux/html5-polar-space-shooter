@@ -36,6 +36,7 @@ Tutorial.prototype.draw = function(ctx) {
     ctx.fillText("SPACEPOLAR", 0, -hScr()/3);
     ctx.font = "20px space_monoregular";
     ctx.fillText("By PAPO", 0, -hScr()/3 + 50);
+    // get it? PAlmero and chaPO hehehe
 
     ctx.fillStyle = "white";
     ctx.font = "20px space_monoregular";
