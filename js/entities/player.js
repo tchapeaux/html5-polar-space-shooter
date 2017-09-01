@@ -30,6 +30,9 @@ var Player = function() {
     this.rotation_timeaccum = 0;
 
     this.player_img = document.getElementById("player_img");
+    this.player_healthy_img = document.getElementById("player_healthy_img");
+    this.player_middle_img = document.getElementById("player_healthy_img");
+    this.player_dying_img = document.getElementById("player_dying_img");
     this.player_hit_img = document.getElementById("player_hit_img");
 };
 
@@ -109,6 +112,12 @@ Player.prototype.draw = function(ctx) {
     var img = this.player_img;
     if (this.disorientedCoolDownTimer > 0) {
         img = this.player_hit_img;
+    }
+    if (this.currentLives < this.maxLives * 0.66) {
+        img = this.player_middle_img;
+    }
+    if (this.currentLives < this.maxLives * 0.33) {
+        img = this.player_dying_img;
     }
     drawCenteredImage(ctx, img, x, y, this.rotation_timeaccum, this.size * 4, this.size * 4);
 
