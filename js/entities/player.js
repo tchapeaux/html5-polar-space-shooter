@@ -31,7 +31,7 @@ var Player = function() {
 
     this.player_img = document.getElementById("player_img");
     this.player_healthy_img = document.getElementById("player_healthy_img");
-    this.player_middle_img = document.getElementById("player_healthy_img");
+    this.player_middle_img = document.getElementById("player_middle_img");
     this.player_dying_img = document.getElementById("player_dying_img");
     this.player_hit_img = document.getElementById("player_hit_img");
 };
@@ -109,7 +109,7 @@ Player.prototype.update = function(ds, keysPressed) {
 Player.prototype.draw = function(ctx) {
     var x = this.ro * Math.cos(this.theta);
     var y = this.ro * Math.sin(this.theta);
-    var img = this.player_img;
+    var img = this.player_healthy_img;
     if (this.disorientedCoolDownTimer > 0) {
         img = this.player_hit_img;
     }

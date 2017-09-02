@@ -39,7 +39,7 @@ Game.prototype.update = function(ds, keysPressed) {
         keysPressed.delete(80);
     }
     if (keysPressed.has(77) /* M */) {
-        backgroundmusic.muted = !backgroundmusic.muted;
+        this.audio.toggle_mute();
         keysPressed.delete(77);
     }
 

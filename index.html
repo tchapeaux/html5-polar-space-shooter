@@ -39,7 +39,8 @@
     <script type="text/javascript">
     "use strict";
 
-    var LOADING_RESOURCES = true;
+    var BODY_LOADED = true;
+    var IN_GAME = false;
 
     // load audio
     var backgroundmusic = new Howl({
@@ -52,6 +53,15 @@
     });
 
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.oRequestAnimationFrame;
+
+    function canStart() {
+        // Manually check that all resources are loaded
+        // backgroundmusic is skipped because the mp3 takes too long to load
+        // so debugging is tedious.
+        // To add it back, add the following to the return statement:
+        // && backgroundmusic.state() == 'loaded'
+        return BODY_LOADED == false && playerhit_fx.state() == 'loaded'
+    }
 
     var gameCanvas = document.getElementById("gameCanvas");
     function wScr() { return gameCanvas.width; }
@@ -84,14 +94,18 @@
         ctx.save();
 
         ctx.translate(gameCanvas.width / 2, gameCanvas.height / 2);
-        if (LOADING_RESOURCES) {
+        if (IN_GAME) {
+            game.update(ds, keysPressed);
+            game.draw(ctx);
+        } else {
             ctx.textAlign = "center";
             ctx.fillStyle = "white";
             ctx.font = "75px Arial";
             ctx.fillText("Loading resources", 0, 0);
-        } else {
-            game.update(ds, keysPressed);
-            game.draw(ctx);
+
+            if (canStart()) {
+                IN_GAME = true;
+            }
         }
 
         ctx.restore();
@@ -104,8 +118,7 @@
 
     function RESOURCES_ONLOAD() {
 
-        // backgroundmusic.muted = false;
-        LOADING_RESOURCES = false;
+        BODY_LOADED = false;
         console.log("Resource load : OK");
     }
     </script>
