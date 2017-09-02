@@ -75,8 +75,8 @@ SpeedLine.prototype.getWidth = function(ratio) {
 
 var StarSystem = function () {
     this.stars = [];
-    this.starCreationSpeed = 75; // stars per second
-    this.maxStarsOnScreen = 10000;
+    this.starCreationSpeed = 30; // stars per second
+    this.maxStarsOnScreen = 2000;
 
     this.speedlines = [];
     this.speedLinesCreationSpeed = 10; // per second
