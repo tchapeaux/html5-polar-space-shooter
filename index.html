@@ -49,18 +49,32 @@
         loop: true
     });
     var playerhit_fx = new Howl({
-        src: ['res/NFF-alien-hit.wav'],
+        src: ['res/NFF-alien-hit.wav']
+    });
+
+    var playershoot_fx = new Howl({
+        src: ['res/NFF-laser.wav']
+    });
+
+    var ennemyshoot_fx = new Howl({
+        src: ['res/NFF-gun-miss.wav']
     });
 
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.oRequestAnimationFrame;
 
     function canStart() {
         // Manually check that all resources are loaded
-        // backgroundmusic is skipped because the mp3 takes too long to load
+        // backgroundmusic is skipped because the file takes too long to load
         // so debugging is tedious.
-        // To add it back, add the following to the return statement:
-        // && backgroundmusic.state() == 'loaded'
-        return BODY_LOADED == false && playerhit_fx.state() == 'loaded'
+        // To add it back, uncomment its line below
+        return (
+            BODY_LOADED == false &&
+            playerhit_fx.state() == 'loaded' &&
+            playershoot_fx.state() == 'loaded' &&
+            ennemyshoot_fx.state() == 'loaded' &&
+            // backgroundmusic.state() == 'loaded' &&
+            true
+        );
     }
 
     var gameCanvas = document.getElementById("gameCanvas");

@@ -67,6 +67,7 @@ Ennemy.prototype.shoot = function() {
     game.physics.ennemy_bullets.push(bul);
     game.physics.addEntity(bul);
     this.coolDownTimer = 0;
+    game.audio.play_ennemyshoot();
 };
 
 Ennemy.prototype.collisionWith = function(entity) {

@@ -7,9 +7,11 @@ Some files in this folder are used under a specific license.
     + https://www.jamendo.com/track/142735/spacer
     + Converted to .ogg format
 
-+ Alien Hit, from NoiseForFun
++ Alien Hit / Gun Miss / Laser, from NoiseForFun
     + License: [CC-BY-ND 3.0 Attribution](http://creativecommons.org/licenses/by-nd/3.0/)
     + http://www.noiseforfun.com/2012-sound-effects/alien-hit/
+    + http://www.noiseforfun.com/2012-sound-effects/gun-miss/
+    + http://www.noiseforfun.com/2012-sound-effects/laser/
 
 # Fonts
 

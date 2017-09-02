@@ -153,6 +153,7 @@ Player.prototype.shoot = function() {
     this.bullets.push(bul);
     game.physics.addEntity(bul);
     this.shootCoolDownTimer = this.shootCoolDown;
+    game.audio.play_playershoot();
 };
 
 Player.prototype.collisionWith = function(entity) {
