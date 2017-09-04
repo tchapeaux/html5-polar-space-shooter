@@ -4,9 +4,9 @@ var Player = function() {
     this.bullets = [];
 
     // constants
-    this.ro = 4 * (worldSize() / 2) / 5;
-    this.maxThetaSpeed = 4 * Math.PI;
-    this.size = 15;
+    this.ro = 85;  // SU
+    this.maxThetaSpeed = 4 * Math.PI;  // rad / s
+    this.size = 10;  // SU
     this.maxLives = 10;
     // shoot cooldown - time between two consecutive shot
     this.shootCoolDown = 0.2;
@@ -36,7 +36,7 @@ var Player = function() {
     this.player_hit_img = document.getElementById("player_hit_img");
 };
 
-Player.BULLET_SPEED = -200;
+Player.BULLET_SPEED = -100;
 
 Player.prototype.update = function(ds, keysPressed) {
     this.rotation_timeaccum += ds;
@@ -119,7 +119,7 @@ Player.prototype.draw = function(ctx) {
     if (this.currentLives < this.maxLives * 0.33) {
         img = this.player_dying_img;
     }
-    drawCenteredImage(ctx, img, x, y, this.rotation_timeaccum, this.size * 4, this.size * 4);
+    drawCenteredImage(ctx, img, x, y, this.rotation_timeaccum, this.size * 2, this.size * 2);
 
     /*
 
@@ -153,6 +153,7 @@ Player.prototype.shoot = function() {
     this.bullets.push(bul);
     game.physics.addEntity(bul);
     this.shootCoolDownTimer = this.shootCoolDown;
+    game.audio.play_playershoot();
 };
 
 Player.prototype.collisionWith = function(entity) {

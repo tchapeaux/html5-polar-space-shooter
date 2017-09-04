@@ -69,6 +69,29 @@ Game.prototype.update = function(ds, keysPressed) {
 };
 
 Game.prototype.draw = function(ctx) {
+    // = A note on coordinates =
+    // This game is simulated in a polar plane, with every entity having
+    // (ro, theta) coordinates
+    // - ro: distance to center of screen (0 = center, 100 = nearest screen edge)
+    // - theta: angle, in radian (0 = right, Pi/2 = above, etc)
+    // (we refer to the 'ro' units as 'Screen Unit (SU)'. 100 SU = worldSize())
+    // This is converted to a (x,y) coordinate in the HTML canvas just before display
+    // Every coordinate/speed/etc value stored in an Entity property should be
+    // in accordance to this coordinate system.
+
+    // Update MAX_SU ('out-of-screen' coordinate)
+    MAX_SU = WORLD_SIZE_SU * Math.max(wScr(), hScr()) / worldSize();
+
+    // Save context
+    ctx.save();
+
+    // Translate so that (0,0) = center of screen
+    ctx.translate(gameCanvas.width / 2, gameCanvas.height / 2);
+    // Scale so that 100 = nearest edge (worldSize())
+    var ratio = worldSize() / 100;
+    ctx.scale(ratio, ratio);
+
+    // Black background
     ctx.beginPath();
     ctx.fillStyle = "black";
     ctx.rect(-wScr() / 2, -hScr() / 2, wScr(), hScr());
@@ -92,12 +115,31 @@ Game.prototype.draw = function(ctx) {
     } else {
         this.lifebar.draw(ctx);
     }
+
+    // DEBUG
+    ctx.beginPath();
+    ctx.globalAlpha = 0.5;
+    ctx.arc(0, 0, 100, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    ctx.restore();
+
 };
 
 Game.prototype.togglePause = function() {
-    if (this.state == Game.states.RUNNING) {
+    if (this.state == Game.states.RUNNING || this.state == Game.states.WAITING_USER_INPUT) {
         this.state = Game.states.PAUSED;
     } else if (this.state == Game.states.PAUSED) {
-        this.state = Game.states.RUNNING;
+        if (this.tutorial.finished()) {
+            this.state = Game.states.RUNNING;
+        } else {
+            this.state = Game.states.WAITING_USER_INPUT;
+        }
     }
 };
+
+// Define world screen variables
+// MAX_SU shall be updated by the Game.draw() loop at each frame
+var WORLD_SIZE_SU = 100;  // Screen Unit (see note above)
+var MAX_SU = WORLD_SIZE_SU * Math.max(gameCanvas.width, gameCanvas.height) / worldSize();

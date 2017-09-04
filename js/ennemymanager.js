@@ -8,7 +8,7 @@ EnnemyManager.prototype.update = function(ds) {
     for (var i = this.ennemies.length - 1; i >= 0; i--) {
         var ennemy = this.ennemies[i];
         ennemy.update(ds);
-        if (ennemy.isDead || ennemy.ro > Math.max(wScr(), hScr())) {
+        if (ennemy.isDead || ennemy.ro > MAX_SU * 1.1) {
             this.ennemies.splice(i, 1);
         }
     }

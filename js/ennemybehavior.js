@@ -12,7 +12,7 @@ var State = function() {
     this.roSpeed = 0;
     this.thetaSpeed = 0;
     this.firingSpeed = -1;  // duration between two consecutive bullets (negative for no shooting)
-    this.bulletSpeed = 100;
+    this.bulletSpeed = 80;
     this.transitionTimerDuration = 0;
     this.timedTransition = -1; // id of 'transitioned to' state (-1 for no transition)
     this.isHitTransition = -1; // id of 'transitioned to' state (-1 for no transition)
@@ -61,9 +61,9 @@ function makeGoStraight() {
     var state = new State();
     state.stateName = "Go_Straight";
     state.fillColor = "grey";
-    state.roSpeed = 40;
+    state.roSpeed = 20;
     state.thetaSpeed = 0;
-    state.bulletSpeed = 100;
+    state.bulletSpeed = 50;
     state.firingSpeed = 2;
     var GoStraight = new Behavior();
     GoStraight.states = [state];
@@ -74,7 +74,7 @@ function makeGoStraight() {
 function makeSeeSaw() {
     var state_advance = new State();
     state_advance.stateName = "advance";
-    state_advance.roSpeed = 20;
+    state_advance.roSpeed = 5;
     state_advance.thetaSpeed = 0;
     state_advance.bulletSpeed = -1;
     state_advance.timedTransition = 1; // rotate

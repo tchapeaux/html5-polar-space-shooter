@@ -4,12 +4,11 @@ var Bullet = function(owner) {
     this.owner = owner;
     this.ro = owner.ro;
     this.theta = owner.theta;
-    this.first_ro = this.ro;
     this.roSpeed = 0;
     this.thetaSpeed = 0;
     this.power = 1;
     this.isDead = false;
-    this.size = 30; // actual on-screen size might be affected by other factors
+    this.size = 10; // actual on-screen size is affected by distance and power
 
     this.animationFrameTotalCount = 2;
     this.animationFrameCounter = 0;
@@ -51,7 +50,7 @@ Bullet.prototype.draw = function(ctx) {
 };
 
 Bullet.prototype.getSize = function() {
-    return this.size * this.power * this.ro / worldSize();
+    return this.size * this.power * (this.ro / WORLD_SIZE_SU);
 };
 
 Bullet.prototype.collisionWith = function(entity) {
@@ -68,6 +67,6 @@ Bullet.prototype.collisionWith = function(entity) {
         return
     }
     this.isDead = true;
-    game.physics.explosions.push(new Explosion(this.ro, this.theta, 10));
+    game.physics.explosions.push(new Explosion(this.ro, this.theta, 5));
 
 };

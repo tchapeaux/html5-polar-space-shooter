@@ -6,7 +6,7 @@ var Explosion = function(ro, theta, size) {
     this.roSpeed = 0;
     this.thetaSpeed = 0;
     this.isDead = false;
-    this.size = size; // actual on-screen size might be affected by other factors
+    this.size = size; // actual on-screen size might be affected by distance
 
     this.animationCounter = 0;
     this.animationLength = 1;
@@ -40,7 +40,7 @@ Explosion.prototype.draw = function(ctx) {
 };
 
 Explosion.prototype.getSize = function() {
-    return this.size * this.ro * 3 / worldSize();
+    return this.size * this.ro * 3 / WORLD_SIZE_SU;
 };
 
 Explosion.prototype.collisionWith = function(entity) {
