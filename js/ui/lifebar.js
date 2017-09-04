@@ -11,14 +11,14 @@ Lifebar.prototype.update = function(ds) {
 };
 
 Lifebar.prototype.draw = function(ctx) {
-    var orig_x = -wScr() / 2 + 10
-    var orig_y = -hScr() / 2 + 10
-    var width = wScr() / 3;
+    var orig_x = -97
+    var orig_y = -97
+    var width = 70;
     var lifeWidth = width * this.current_life_ratio;
-    var height = 10;
-    var outline = 3;
+    var height = 5;
+    var outline = 1;
 
-    ctx.globalAlpha = 0.5;
+    ctx.globalAlpha = 1;
 
     ctx.fillStyle = "white";
     ctx.beginPath();

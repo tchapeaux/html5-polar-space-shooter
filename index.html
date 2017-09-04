@@ -7,7 +7,7 @@
     <title>pew pew >[]} ---- ((o))</title>
 </head>
 
-<body onload="RESOURCES_ONLOAD()">
+<body onload="BODY_ONLOAD()">
 
 <img src="res/player.svg" id="player_img" hidden>
 <img src="res/player-healthy.svg" id="player_healthy_img" hidden>
@@ -35,7 +35,7 @@
 <script src="https://cdn.jsdelivr.net/npm/howler@2.0.4/dist/howler.min.js"></script>
 
 <div id="gameId">
-    <canvas id="gameCanvas" width ="800" height="650"></canvas>
+    <canvas id="gameCanvas" width ="100%" height="100%"></canvas>
     <script type="text/javascript">
     "use strict";
 
@@ -80,7 +80,7 @@
     var gameCanvas = document.getElementById("gameCanvas");
     function wScr() { return gameCanvas.width; }
     function hScr() { return gameCanvas.height; }
-    function worldSize() { return Math.min(wScr(), hScr()); }
+    function worldSize() { return Math.min(wScr(), hScr()) / 2; }
     var game = new Game();
 
     var keysPressed = new Set();
@@ -95,19 +95,18 @@
 
     var kMAX_LAG = 0.1; // maximal duration sent to the simulation at each frame
 
-    var oldTimestamp = Date.now();
+    var oldTimestamp = performance.now();
     function step(timestamp) {
         var ds = (timestamp - oldTimestamp) / 1000;
-        ds = Math.max(0, ds);
+        if (ds < 0) {
+            console.log("Negative delta time -- This should not happen!");
+        }
         ds = Math.min(ds, kMAX_LAG);
 
         var ctx = gameCanvas.getContext("2d");
         ctx.canvas.width  = window.innerWidth;
         ctx.canvas.height = window.innerHeight;
 
-        ctx.save();
-
-        ctx.translate(gameCanvas.width / 2, gameCanvas.height / 2);
         if (IN_GAME) {
             game.update(ds, keysPressed);
             game.draw(ctx);
@@ -122,15 +121,13 @@
             }
         }
 
-        ctx.restore();
-
         requestAnimationFrame(step);
         oldTimestamp = timestamp;
     }
 
     requestAnimationFrame(step);
 
-    function RESOURCES_ONLOAD() {
+    function BODY_ONLOAD() {
 
         BODY_LOADED = false;
         console.log("Resource load : OK");

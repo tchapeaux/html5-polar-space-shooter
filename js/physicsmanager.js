@@ -40,7 +40,7 @@ PhysicsManager.prototype.update = function(ds) {
     for (var b = this.ennemy_bullets.length - 1; b >= 0; b--) {
         var bul = this.ennemy_bullets[b];
         bul.update(ds);
-        if (bul.ro <= 0 || bul.ro > worldSize() || bul.isDead) {
+        if (bul.ro <= 0 || bul.ro > MAX_SU * 1.1 || bul.isDead) {
             this.ennemy_bullets.splice(b, 1);
         };
     };

@@ -5,7 +5,7 @@ var Ennemy = function(behavior) {
     this.theta = Math.random() * 2 * Math.PI;
     this.life = 3;
     this.isDead = false;
-    this.size = 30;
+    this.size = 10;
     this.behavior = behavior;
     this.fireTimer = 0;
 
@@ -31,14 +31,14 @@ Ennemy.prototype.update = function(ds) {
     }
     if (this.life < 0) {
         this.isDead = true;
-        game.physics.explosions.push(new Explosion(this.ro, this.theta, 30));
+        game.physics.explosions.push(new Explosion(this.ro, this.theta, 10));
     }
 };
 
 Ennemy.prototype.draw = function(ctx) {
     var x = this.ro * Math.cos(this.theta);
     var y = this.ro * Math.sin(this.theta);
-    ctx.globalAlpha = Math.min(1, this.ro / (worldSize() / 8));
+    ctx.globalAlpha = Math.min(1, this.ro / (WORLD_SIZE_SU / 8));
 
     drawCenteredImage(ctx, this.ennemy_img, x, y, this.theta, this.getSize() * 4, this.getSize() * 4);
 
@@ -56,7 +56,7 @@ Ennemy.prototype.draw = function(ctx) {
 };
 
 Ennemy.prototype.getSize = function() {
-    return this.size * (this.ro / worldSize());
+    return this.size * (this.ro / WORLD_SIZE_SU);
 };
 
 Ennemy.prototype.shoot = function() {

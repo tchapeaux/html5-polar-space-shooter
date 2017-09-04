@@ -2,14 +2,14 @@
 
 var Star = function() {
     this.ro = 0;
-    this.roSpeed = 50;
-    this.roAccel = 0;
-    this.theta = Math.random() * 2 * Math.PI;
-    this.thetaSpeed = Math.random() * 0.5;
-    this.thetaAccel = 0;
+    this.roSpeed = 20;  // Screen Unit / s
+    this.roAccel = 0;  // Screen Unit / s / s
+    this.theta = Math.random() * 2 * Math.PI;  // radians
+    this.thetaSpeed = Math.random() * 0.5;  // radians / s
+    this.thetaAccel = 0;  // radians / s / s
     this.color = "cyan";
     if (Math.random() < 0.3) { this.color = "gold"; }
-    this.size = Math.random() * 5 + 10;
+    this.size = Math.random() * 3 + 4;
 };
 
 Star.prototype.draw = function(ctx) {
@@ -32,15 +32,15 @@ Star.prototype.update = function(ds) {
 };
 
 Star.prototype.getSize = function() {
-    return this.size * (this.ro / worldSize());
+    return this.size * (this.ro / WORLD_SIZE_SU);
 };
 
 var SpeedLine = function() {
     this.theta = Math.random() * 2 * Math.PI;
-    this.length = Math.randomBetween(100, 400);
+    this.length = Math.randomBetween(20, 60);  // SU
     this.width = 5;
     this.ro = 0;
-    this.roSpeed = Math.randomBetween(100, 400);
+    this.roSpeed = Math.randomBetween(40, 70);  // SU / s
     this.color = "white";
 };
 
@@ -65,18 +65,18 @@ SpeedLine.prototype.update = function(ds) {
 };
 
 SpeedLine.prototype.getLength = function() {
-    return this.length * (this.ro / worldSize());
+    return this.length * (this.ro / WORLD_SIZE_SU);
 };
 
 SpeedLine.prototype.getWidth = function(ratio) {
     // return the size at position ratio (between 0 - start and 1 - end)
-    return this.width * (this.ro + ratio * this.getLength()) / worldSize();
+    return this.width * (this.ro + ratio * this.getLength()) / WORLD_SIZE_SU;
 };
 
 var StarSystem = function () {
     this.stars = [];
-    this.starCreationSpeed = 30; // stars per second
-    this.maxStarsOnScreen = 2000;
+    this.starCreationSpeed = 20; // stars per second
+    this.maxStarsOnScreen = 5000;
 
     this.speedlines = [];
     this.speedLinesCreationSpeed = 10; // per second
@@ -87,7 +87,8 @@ StarSystem.prototype.draw = function(ctx) {
     // draw speedlines
     for (var j = this.speedlines.length - 1; j >= 0; j--) {
         var sl = this.speedlines[j];
-        ctx.globalAlpha = sl.ro / worldSize();
+        ctx.globalAlpha = sl.ro / WORLD_SIZE_SU;
+        // ctx.globalAlpha = Math.max(ctx.globalAlpha, 1);
         sl.draw(ctx);
         ctx.globalAlpha = 1;
     }
@@ -110,7 +111,7 @@ StarSystem.prototype.update = function(ds) {
         star.update(ds);
 
         // delete far away stars
-        if (star.ro > worldSize() * 1.5) {
+        if (star.ro > MAX_SU * 1.1) {
             this.stars.splice(i, 1);
         }
     }
@@ -121,7 +122,7 @@ StarSystem.prototype.update = function(ds) {
         sl.update(ds);
 
         // delete far away speedlines
-        if (sl.ro > worldSize()) {
+        if (sl.ro > MAX_SU * 1.1) {
             this.speedlines.splice(j, 1);
         }
     }
