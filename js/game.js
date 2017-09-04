@@ -117,11 +117,11 @@ Game.prototype.draw = function(ctx) {
     }
 
     // DEBUG
-    ctx.beginPath();
-    ctx.globalAlpha = 0.5;
-    ctx.arc(0, 0, 100, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
+    // ctx.beginPath();
+    // ctx.globalAlpha = 0.5;
+    // ctx.arc(0, 0, 100, 0, 2 * Math.PI);
+    // ctx.stroke();
+    // ctx.globalAlpha = 1;
 
     ctx.restore();
 
