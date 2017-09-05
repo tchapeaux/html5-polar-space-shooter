@@ -34,20 +34,22 @@ Tutorial.prototype.draw = function(ctx) {
     var textSizeRatio = worldSize() / (WORLD_SIZE_SU);
 
     ctx.fillStyle = this.currenttitlecolor;
+    var maxWidth = 100;  // fit to 100 SU
     ctx.font = (5 * textSizeRatio) + "px space_monoregular";
-    ctx.fillText("SPACEPOLAR", 0, -65);
+    ctx.fillText("SPACEPOLAR", 0, -65, maxWidth);
     ctx.font = (3 * textSizeRatio) + "px space_monoregular";
-    ctx.fillText("By PAPO", 0, -45);
+    ctx.fillText("By PAPO", 0, -45, maxWidth);
     // get it? PAlmero and chaPO hehehe
 
     ctx.fillStyle = "white";
-    ctx.font = (3 * textSizeRatio) + "px space_monoregular";
+    maxWidth = 100;
+    ctx.font = (2 * textSizeRatio) + "px space_monoregular";
     if (this.steps == 0) {
-        ctx.fillText("MOVE : arrow keys", 0, -15);
-        ctx.fillText("FIRE : space key", 0, -3);
-        ctx.fillText("PAUSE : p key", 0, 9);
-        ctx.fillText("MUTE : m key", 0, 21);
-        ctx.fillText(">> Fire to start mission <<", 0, 40);
+        ctx.fillText("MOVE : arrow keys", 0, -15, maxWidth);
+        ctx.fillText("FIRE : space key", 0, -3, maxWidth);
+        ctx.fillText("PAUSE : p key", 0, 9, maxWidth);
+        ctx.fillText("MUTE : m key", 0, 21, maxWidth);
+        ctx.fillText(">> Fire to start mission <<", 0, 40, maxWidth);
     }
 
 };
