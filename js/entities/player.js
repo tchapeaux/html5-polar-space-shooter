@@ -4,10 +4,10 @@ var Player = function() {
     this.bullets = [];
 
     // constants
-    this.ro = 85;  // SU
+    this.ro = 72;  // SU
     this.maxThetaSpeed = 4 * Math.PI;  // rad / s
-    this.size = 10;  // SU
-    this.maxLives = 10;
+    this.size = 17;  // SU
+    this.maxLives = 20;
     // shoot cooldown - time between two consecutive shot
     this.shootCoolDown = 0.2;
     // speed cooldown - time to slow down to a stop when releasing move keys
