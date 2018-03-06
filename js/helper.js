@@ -88,6 +88,25 @@ function cartesianToPolar(x, y) {
     return [ro, theta];
 }
 
+function normalizeAngle(angle) {
+    // Return an equivalent angle between 0 and 2*PI
+    while (angle <= 0) {
+        angle += 2 * Math.PI;
+    }
+    while (angle > 2 * Math.PI) {
+        angle -= 2 * Math.PI;
+    }
+    return angle;
+}
+
+function angleDistance(angle1, angle2) {
+    var d = Math.abs(angle2 - angle1);
+    if (d > Math.PI) {
+        d = Math.abs(2 * Math.PI - d);
+    }
+    return d;
+}
+
 function drawCenteredImage(ctx, img, x, y, angle, size_x, size_y) {
     ctx.save();
     ctx.translate(x, y);

@@ -18,6 +18,7 @@ var Explosion = function(ro, theta, size) {
 Explosion.prototype.update = function(ds) {
     this.ro += this.roSpeed * ds;
     this.theta += this.thetaSpeed * ds;
+    this.theta = normalizeAngle(this.theta);
 
     this.animationCounter += ds;
     if (this.animationCounter > this.animationLength) {

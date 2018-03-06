@@ -5,7 +5,7 @@ var Ennemy = function(behavior) {
     this.theta = Math.random() * 2 * Math.PI;
     this.life = 3;
     this.isDead = false;
-    this.size = 10;
+    this.size = 7;
     this.behavior = behavior;
     this.fireTimer = 0;
 
@@ -19,6 +19,7 @@ Ennemy.prototype.update = function(ds) {
     var firingSpeed = this.behavior.getFiringSpeed();
     this.ro += roSpeed * ds;
     this.theta += thetaSpeed * ds;
+    this.theta = normalizeAngle(this.theta);
 
     this.fireTimer += ds;
     if (firingSpeed >= 0 && this.fireTimer > firingSpeed) {

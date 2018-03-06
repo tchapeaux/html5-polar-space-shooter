@@ -8,7 +8,7 @@ var Bullet = function(owner) {
     this.thetaSpeed = 0;
     this.power = 1;
     this.isDead = false;
-    this.size = 10; // actual on-screen size is affected by distance and power
+    this.size = 5; // actual on-screen size is affected by distance and power
 
     this.animationFrameTotalCount = 2;
     this.animationFrameCounter = 0;
@@ -19,6 +19,7 @@ var Bullet = function(owner) {
 Bullet.prototype.update = function(ds) {
     this.ro += this.roSpeed * ds;
     this.theta += this.thetaSpeed * ds;
+    this.theta = normalizeAngle(this.theta);
 
     this.animationPeriodCounter += ds;
     if (this.animationPeriodCounter > this.animationPeriod) {

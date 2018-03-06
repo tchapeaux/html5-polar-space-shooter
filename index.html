@@ -83,6 +83,11 @@
     function worldSize() { return Math.min(wScr(), hScr()) / 2; }
     var game = new Game();
 
+    // instantly advance the simulation of starsystem so that stars are already in place
+    for (var i = 0; i < 600; i++) {
+        game.starSystem.update(0.1);
+    }
+
     var keysPressed = new Set();
     window.addEventListener('keydown', this.keyDown, false);
     window.addEventListener('keyup', this.keyUp, false);
