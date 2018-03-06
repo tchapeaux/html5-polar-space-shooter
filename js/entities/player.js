@@ -4,9 +4,9 @@ var Player = function() {
     this.bullets = [];
 
     // constants
-    this.ro = 72;  // SU
+    this.ro = 85;  // SU
     this.maxThetaSpeed = 4 * Math.PI;  // rad / s
-    this.size = 17;  // SU
+    this.size = 8;  // SU
     this.maxLives = 20;
     // shoot cooldown - time between two consecutive shot
     this.shootCoolDown = 0.2;
@@ -16,7 +16,7 @@ var Player = function() {
     this.disorientedCoolDown = 2;
 
     // state
-    this.theta = 0;
+    this.theta = 3 * Math.PI / 4; // starting position
     this.thetaSpeed = 0;
     this.thetaAccel = 4 * Math.PI;
     this.currentLives = this.maxLives;

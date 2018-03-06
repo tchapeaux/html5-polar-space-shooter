@@ -8,7 +8,7 @@ var Bullet = function(owner) {
     this.thetaSpeed = 0;
     this.power = 1;
     this.isDead = false;
-    this.size = 10; // actual on-screen size is affected by distance and power
+    this.size = 5; // actual on-screen size is affected by distance and power
 
     this.animationFrameTotalCount = 2;
     this.animationFrameCounter = 0;

@@ -9,7 +9,7 @@ var Star = function() {
     this.thetaAccel = 0;  // radians / s / s
     this.color = "cyan";
     if (Math.random() < 0.3) { this.color = "gold"; }
-    this.size = Math.random() * 3 + 4;
+    this.size = Math.random() * 1.5 + 2;
 };
 
 Star.prototype.draw = function(ctx) {
@@ -75,12 +75,13 @@ SpeedLine.prototype.getWidth = function(ratio) {
 
 var StarSystem = function () {
     this.stars = [];
-    this.starCreationSpeed = 20; // stars per second
+    this.starCreationSpeed = 50; // stars per second
     this.maxStarsOnScreen = 5000;
 
     this.speedlines = [];
-    this.speedLinesCreationSpeed = 10; // per second
-    this.maxSpeedLinesOnScreen = 100;
+    this.speedLinesCreationSpeed = 20; // per second
+    this.maxSpeedLinesOnScreen = 200;
+
     // partial counter:
     // If a creation speed is inferior to one per animation frame,
     // keep track of partial creation ratio of new elements

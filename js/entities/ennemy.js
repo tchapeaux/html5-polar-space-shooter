@@ -5,7 +5,7 @@ var Ennemy = function(behavior) {
     this.theta = Math.random() * 2 * Math.PI;
     this.life = 3;
     this.isDead = false;
-    this.size = 10;
+    this.size = 7;
     this.behavior = behavior;
     this.fireTimer = 0;
 
