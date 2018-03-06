@@ -16,11 +16,6 @@ var Game = function() {
     this.lifebar = new Lifebar(this.player);
     this.tutorial = new Tutorial();
 
-    // instantly advance the simulation of starsystem so that stars are already in place
-    for (var i = 0; i < 600; i++) {
-        this.starSystem.update(0.1);
-    }
-
     this.physics.addEntity(this.player);
 
     this.state = Game.states.WAITING_USER_INPUT;
