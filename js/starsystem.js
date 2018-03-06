@@ -81,6 +81,12 @@ var StarSystem = function () {
     this.speedlines = [];
     this.speedLinesCreationSpeed = 10; // per second
     this.maxSpeedLinesOnScreen = 100;
+    // partial counter:
+    // If a creation speed is inferior to one per animation frame,
+    // keep track of partial creation ratio of new elements
+    this.partialStarCounter = 0;
+    this.partialLineCounter = 0;
+
 };
 
 StarSystem.prototype.draw = function(ctx) {
@@ -131,8 +137,12 @@ StarSystem.prototype.update = function(ds) {
     if (this.stars.length < this.maxStarsOnScreen) {
         var deltaStars = Math.max(0, this.maxStarsOnScreen - this.stars.length);
         var starsToCreate = Math.min(deltaStars, this.starCreationSpeed * ds);
-        for (j = 0; j < starsToCreate; j++ ) {
-            this.stars.push(new Star());
+        this.partialStarCounter += starsToCreate;
+        if (this.partialStarCounter >= 1) {
+            for (j = 0; j < this.partialStarCounter; j++ ) {
+                this.stars.push(new Star());
+                this.partialStarCounter -= 1;
+            }
         }
     }
 
@@ -140,8 +150,12 @@ StarSystem.prototype.update = function(ds) {
     if (this.speedlines.length < this.maxSpeedLinesOnScreen) {
         var deltaSpeedLines = Math.max(0, this.maxSpeedLinesOnScreen - this.speedlines.length);
         var speedLinesToCreate = Math.min(deltaSpeedLines, this.speedLinesCreationSpeed * ds);
-        for (j = 0; j < speedLinesToCreate; j++ ) {
-            this.speedlines.push(new SpeedLine());
+        this.partialLineCounter += speedLinesToCreate;
+        if (this.partialLineCounter >= 1) {
+            for (j = 0; j < this.partialLineCounter; j++ ) {
+                this.speedlines.push(new SpeedLine());
+                this.partialLineCounter -= 1;
+            }
         }
     }
 };
