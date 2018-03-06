@@ -19,6 +19,7 @@ var Bullet = function(owner) {
 Bullet.prototype.update = function(ds) {
     this.ro += this.roSpeed * ds;
     this.theta += this.thetaSpeed * ds;
+    this.theta = normalizeAngle(this.theta);
 
     this.animationPeriodCounter += ds;
     if (this.animationPeriodCounter > this.animationPeriod) {

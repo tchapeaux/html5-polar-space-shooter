@@ -81,6 +81,7 @@ Player.prototype.update = function(ds, keysPressed) {
 
     // movement
     this.theta += this.thetaSpeed * ds;
+    this.theta = normalizeAngle(this.theta);
 
     // being hit
     if (this.isHit) {

@@ -19,6 +19,7 @@ Ennemy.prototype.update = function(ds) {
     var firingSpeed = this.behavior.getFiringSpeed();
     this.ro += roSpeed * ds;
     this.theta += thetaSpeed * ds;
+    this.theta = normalizeAngle(this.theta);
 
     this.fireTimer += ds;
     if (firingSpeed >= 0 && this.fireTimer > firingSpeed) {
