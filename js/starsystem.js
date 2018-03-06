@@ -14,6 +14,15 @@ var Star = function() {
 
 Star.prototype.draw = function(ctx) {
     // supposes that (0, 0) is the center of the screen
+
+    // distance to player
+    // We only consider theta difference
+    var distanceToPlayer = angleDistance(this.theta, game.player.theta);
+    var distanceToPlayerRatio = 1 - distanceToPlayer / (Math.PI / 3);
+    distanceToPlayerRatio = Math.min(1, distanceToPlayerRatio);
+    distanceToPlayerRatio = Math.max(0.2, distanceToPlayerRatio);
+    ctx.globalAlpha = distanceToPlayerRatio;
+
     ctx.fillStyle = this.color;
     var _ = polarToCartesian(this.ro, this.theta);
     var x = _[0];
@@ -22,6 +31,7 @@ Star.prototype.draw = function(ctx) {
     ctx.beginPath();
     ctx.arc(x - size / 2, y - size / 2, size, 0, 2 * Math.PI);
     ctx.fill();
+    ctx.globalAlpha = 1;
 };
 
 Star.prototype.update = function(ds) {
@@ -29,6 +39,7 @@ Star.prototype.update = function(ds) {
     this.ro += this.roSpeed * ds;
     this.thetaSpeed += this.thetaAccel * ds;
     this.theta += this.thetaSpeed * ds;
+    this.theta = normalizeAngle(this.theta);
 };
 
 Star.prototype.getSize = function() {
@@ -45,6 +56,7 @@ var SpeedLine = function() {
 };
 
 SpeedLine.prototype.draw = function(ctx) {
+    ctx.globalAlpha = this.ro / WORLD_SIZE_SU;
     var _ = polarToCartesian(this.ro, this.theta);
     var x1 = _[0];
     var y1 = _[1];
@@ -58,6 +70,7 @@ SpeedLine.prototype.draw = function(ctx) {
     ctx.lineTo(x2, y2);
     ctx.lineWidth = 1;
     ctx.stroke();
+    ctx.globalAlpha = 1;
 };
 
 SpeedLine.prototype.update = function(ds) {
@@ -94,18 +107,13 @@ StarSystem.prototype.draw = function(ctx) {
     // draw speedlines
     for (var j = this.speedlines.length - 1; j >= 0; j--) {
         var sl = this.speedlines[j];
-        ctx.globalAlpha = sl.ro / WORLD_SIZE_SU;
-        // ctx.globalAlpha = Math.max(ctx.globalAlpha, 1);
         sl.draw(ctx);
-        ctx.globalAlpha = 1;
     }
 
     // draw stars
     for (var i = this.stars.length - 1; i >= 0; i--) {
         var star = this.stars[i];
-        ctx.globalAlpha = 0.5;
         star.draw(ctx);
-        ctx.globalAlpha = 1;
     }
 };
 

@@ -99,6 +99,14 @@ function normalizeAngle(angle) {
     return angle;
 }
 
+function angleDistance(angle1, angle2) {
+    var d = Math.abs(angle2 - angle1);
+    if (d > Math.PI) {
+        d = Math.abs(2 * Math.PI - d);
+    }
+    return d;
+}
+
 function drawCenteredImage(ctx, img, x, y, angle, size_x, size_y) {
     ctx.save();
     ctx.translate(x, y);
